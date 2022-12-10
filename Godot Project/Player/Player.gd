@@ -21,7 +21,7 @@ onready var headSprite = $Sprites/Head
 
 var velocity = Vector2.ZERO
 var dashing = false
-
+var facing_right = true setget orient_sprites
 
 func _physics_process(delta):
 	apply_gravity()
@@ -29,10 +29,10 @@ func _physics_process(delta):
 	input.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
 	
 	if Input.is_action_just_pressed("dash_right"):
-		orient_sprites("right")
+		self.facing_right = true
 		dash(1)
 	elif Input.is_action_just_pressed("dash_left"):
-		orient_sprites("left")
+		self.facing_right = false
 		dash(-1)
 	
 	if input.x == 0:
@@ -45,9 +45,9 @@ func _physics_process(delta):
 			animationPlayer.play("Walk")
 		
 		if input.x > 0:
-			orient_sprites("right")
+			self.facing_right = true
 		elif input.x < 0:
-			orient_sprites("left")
+			self.facing_right = false
 	
 	if Input.is_action_just_pressed("jump"):
 			velocity.y = JUMP_FORCE
@@ -81,33 +81,12 @@ func dash(dir):
 	velocity.x = move_toward(velocity.x, 0, 0.05)
 	dashing = false
 
-#decide on the best way to flip sprites
-func orient_sprites(direction):
-	if direction == "right":
-		#$Sprites.scale.x = 1
-		leftFootSprite.flip_h = false
-		rightFootSprite.flip_h = false
-		backHandSprite.flip_h = false
-		bodySprite.flip_h = false
-		frontHandSprite.flip_h = false
-		headSprite.flip_h = false
-#		leftFootSprite.scale.x = 1
-#		rightFootSprite.scale.x = 1
-#		backHandSprite.scale.x = 1
-#		bodySprite.scale.x = 1
-#		frontHandSprite.scale.x = 1
-#		headSprite.scale.x = 1
-	elif direction == "left":
-		#$Sprites.scale.x = -1
-		leftFootSprite.flip_h = true
-		rightFootSprite.flip_h = true
-		backHandSprite.flip_h = true
-		bodySprite.flip_h = true
-		frontHandSprite.flip_h = true
-		headSprite.flip_h = true
-#		leftFootSprite.scale.x = -1
-#		rightFootSprite.scale.x = -1
-#		backHandSprite.scale.x = -1
-#		bodySprite.scale.x = -1
-#		frontHandSprite.scale.x = -1
-#		headSprite.scale.x = -1
+func orient_sprites(right_is_new):
+	if facing_right != right_is_new && right_is_new:
+		facing_right = right_is_new
+		animationPlayer.play("FlipRight")
+	
+	elif facing_right != right_is_new && !right_is_new:
+		facing_right = right_is_new
+		animationPlayer.play("FlipLeft")
+
