@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://Sprites/default-character.png" type="Texture" id=1]
 [ext_resource path="res://Player/Player.gd" type="Script" id=5]
@@ -76,7 +76,7 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 3, 5.5 )
+extents = Vector2( 3, 5 )
 
 [sub_resource type="Animation" id=4]
 resource_name = "Idle"
@@ -179,6 +179,156 @@ tracks/7/keys = {
 "update": 0,
 "values": [ 0.0, 0.0 ]
 }
+tracks/8/type = "value"
+tracks/8/path = NodePath("Sprites/FrontHand:rotation_degrees")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0 ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("Sprites/BackHand:rotation_degrees")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0 ]
+}
+
+[sub_resource type="Animation" id=19]
+resource_name = "Jump"
+length = 0.5
+loop = true
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprites/Head:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.15, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 8, 8 ), Vector2( 8, 8.5 ), Vector2( 8, 8 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprites/Head:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.15, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 5.0, 0.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Sprites/FrontHand:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 8, 8 ), Vector2( 8, 8 ), Vector2( 8, 8 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Sprites/BackHand:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 8, 8 ), Vector2( 6, 8 ), Vector2( 8, 8 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Sprites/Body:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0.1, 0.3, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 8, 8 ), Vector2( 8, 8.2 ), Vector2( 8, 8 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Sprites/LeftFoot:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 8, 8 ), Vector2( 8, 8 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Sprites/RightFoot:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 8, 8 ), Vector2( 8, 8 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Sprites/Body:rotation_degrees")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0.1, 0.3, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, -5.0, 0.0 ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("Sprites/FrontHand:rotation_degrees")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 35.0, 0.0 ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("Sprites/BackHand:rotation_degrees")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, -33.0, 0.0 ]
+}
 
 [sub_resource type="Animation" id=5]
 length = 0.001
@@ -277,6 +427,30 @@ tracks/7/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ Vector2( 8, 8 ) ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("Sprites/FrontHand:rotation_degrees")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 35.0 ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("Sprites/BackHand:rotation_degrees")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ -33.0 ]
 }
 
 [sub_resource type="Animation" id=6]
@@ -380,6 +554,30 @@ tracks/7/keys = {
 "update": 0,
 "values": [ 0.0, -5.0, 0.0 ]
 }
+tracks/8/type = "value"
+tracks/8/path = NodePath("Sprites/FrontHand:rotation_degrees")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0 ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("Sprites/BackHand:rotation_degrees")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0 ]
+}
 
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 5 )
@@ -392,7 +590,7 @@ frames = SubResource( 8 )
 animation = "default_character_sheet"
 
 [node name="RightFoot" type="AnimatedSprite" parent="Sprites"]
-position = Vector2( 8, 7 )
+position = Vector2( 8, 8 )
 frames = SubResource( 10 )
 
 [node name="BackHand" type="AnimatedSprite" parent="Sprites"]
@@ -412,13 +610,17 @@ position = Vector2( 8, 8 )
 frames = SubResource( 18 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
-position = Vector2( 9, 10.5 )
+position = Vector2( 8, 11 )
 shape = SubResource( 1 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 reset_on_save = false
-playback_speed = 1.8
+playback_speed = 1.5
 anims/Idle = SubResource( 4 )
+anims/Jump = SubResource( 19 )
 anims/RESET = SubResource( 5 )
 anims/Walk = SubResource( 6 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+offset = Vector2( 8, 8 )
+current = true
