@@ -1,7 +1,7 @@
 extends KinematicBody2D
 
 
-export(int) var JUMP_FORCE = -180
+export(int) var JUMP_FORCE = -250
 export(int) var JUMP_RELEASE_FORCE = -70
 export(int) var MAX_SPEED = 100
 export(int) var ACCELERATION = 20
@@ -9,7 +9,7 @@ export(int) var FRICTION = 15
 export(int) var GRAVITY = 4
 export(int) var ADDITIONAL_FALL_GRAVITY = 4
 export(int) var MAX_FALL_SPEED = 200
-export(int) var DASH_SPEED = 900
+export(int) var DASH_SPEED = 500
 
 onready var animationPlayer = $AnimationPlayer
 onready var leftFootSprite = $Sprites/LeftFoot
@@ -28,6 +28,13 @@ func _physics_process(delta):
 	var input = Vector2.ZERO
 	input.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
 	
+	if Input.is_action_just_pressed("dash_right"):
+		orient_sprites("right")
+		dash(1)
+	elif Input.is_action_just_pressed("dash_left"):
+		orient_sprites("left")
+		dash(-1)
+	
 	if input.x == 0:
 		apply_friction()
 		if is_on_floor():
@@ -42,10 +49,11 @@ func _physics_process(delta):
 		elif input.x < 0:
 			orient_sprites("left")
 	
-	if is_on_floor():                                             #remove commenting to make player only able to jump once
-		if Input.is_action_just_pressed("jump"):
+	if Input.is_action_just_pressed("jump"):
 			velocity.y = JUMP_FORCE
-	else:
+			
+	
+	if is_on_floor() == false:
 		animationPlayer.play("Jump")
 		if Input.is_action_just_released("jump") and velocity.y < JUMP_RELEASE_FORCE:
 			velocity.y = JUMP_RELEASE_FORCE
@@ -68,7 +76,10 @@ func apply_acceleration(amount):
 func dash(dir):
 	dashing = true
 	velocity.x = DASH_SPEED * dir
+	velocity.y = -40
 	yield(get_tree().create_timer(0.3), "timeout")
+	velocity.x = move_toward(velocity.x, 0, 0.05)
+	dashing = false
 
 #decide on the best way to flip sprites
 func orient_sprites(direction):
