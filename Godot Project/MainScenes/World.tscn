@@ -5,8 +5,8 @@
 
 [node name="World" type="Node2D"]
 
+[node name="Level_1" parent="." instance=ExtResource( 2 )]
+
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 16, 72 )
 JUMP_HEIGHT = 80.0
-
-[node name="Level_1" parent="." instance=ExtResource( 2 )]

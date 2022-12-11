@@ -1,4 +1,5 @@
 extends KinematicBody2D
+#class_name Player
 
 
 export(int) var RUN_SPEED = 150
@@ -18,12 +19,9 @@ onready var fall_gravity : float = (-2.0 * JUMP_HEIGHT) / (JUMP_TIME_TO_DESCEND 
 
 
 onready var animationPlayer = $AnimationPlayer
-#onready var leftFootSprite = $Sprites/LeftFoot
-#onready var rightFootSprite = $Sprites/RightFoot
-#onready var backHandSprite = $Sprites/BackHand
-#onready var bodySprite = $Sprites/Body
-#onready var frontHandSprite = $Sprites/FrontHand
-#onready var headSprite = $Sprites/Head
+# weapon needs to link to an interchangable weapon in the future. for now it's set on default
+onready var weapon = get_node("Sprites/BackHand/WeaponPosition/DefaultGun")
+
 
 var velocity = Vector2.ZERO
 var dashing = false
@@ -36,10 +34,8 @@ func _physics_process(delta):
 	input.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
 	
 	if Input.is_action_just_pressed("dash_right"):
-		#self.facing_right = true
 		dash(1)
 	elif Input.is_action_just_pressed("dash_left"):
-		#self.facing_right = false
 		dash(-1)
 	
 	if input.x == 0:
@@ -52,16 +48,17 @@ func _physics_process(delta):
 			animationPlayer.play("Run")
 		
 		if input.x > 0:
-			#self.facing_right = true
 			if velocity.x < 0:
 				velocity.x *= 0
 		elif input.x < 0:
 			if velocity.x > 0:
 				velocity.x *= 0
-			#self.facing_right = false
 	
 	if Input.is_action_just_pressed("jump"):
 			jump()
+	
+	if Input.is_action_pressed("fire"):
+		weapon.fire()
 	
 	if not is_on_floor():
 		animationPlayer.play("Jump")

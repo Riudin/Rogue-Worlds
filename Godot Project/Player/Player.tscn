@@ -83,7 +83,7 @@ tracks/5/keys = {
 "values": [ 7 ]
 }
 tracks/6/type = "value"
-tracks/6/path = NodePath("Sprites/BackHand/WeaponOrigin:position")
+tracks/6/path = NodePath("Sprites/BackHand/WeaponPosition:position")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/imported = false
@@ -95,7 +95,7 @@ tracks/6/keys = {
 "values": [ Vector2( -4, 4 ) ]
 }
 tracks/7/type = "value"
-tracks/7/path = NodePath("Sprites/BackHand/WeaponOrigin:scale")
+tracks/7/path = NodePath("Sprites/BackHand/WeaponPosition:scale")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/imported = false
@@ -183,7 +183,7 @@ tracks/5/keys = {
 "values": [ 0 ]
 }
 tracks/6/type = "value"
-tracks/6/path = NodePath("Sprites/BackHand/WeaponOrigin:position")
+tracks/6/path = NodePath("Sprites/BackHand/WeaponPosition:position")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/imported = false
@@ -195,7 +195,7 @@ tracks/6/keys = {
 "values": [ Vector2( 4, 4 ) ]
 }
 tracks/7/type = "value"
-tracks/7/path = NodePath("Sprites/BackHand/WeaponOrigin:scale")
+tracks/7/path = NodePath("Sprites/BackHand/WeaponPosition:scale")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/imported = false
@@ -677,7 +677,7 @@ tracks/17/keys = {
 "values": [ 0 ]
 }
 tracks/18/type = "value"
-tracks/18/path = NodePath("Sprites/BackHand/WeaponOrigin:position")
+tracks/18/path = NodePath("Sprites/BackHand/WeaponPosition:position")
 tracks/18/interp = 1
 tracks/18/loop_wrap = true
 tracks/18/imported = false
@@ -689,7 +689,7 @@ tracks/18/keys = {
 "values": [ Vector2( 4, 4 ) ]
 }
 tracks/19/type = "value"
-tracks/19/path = NodePath("Sprites/BackHand/WeaponOrigin:scale")
+tracks/19/path = NodePath("Sprites/BackHand/WeaponPosition:scale")
 tracks/19/interp = 1
 tracks/19/loop_wrap = true
 tracks/19/imported = false
@@ -826,7 +826,7 @@ tracks/9/keys = {
 "values": [ 0.0, 0.0 ]
 }
 
-[node name="Player" type="KinematicBody2D"]
+[node name="Player" type="KinematicBody2D" groups=["Player"]]
 script = ExtResource( 5 )
 
 [node name="Sprites" type="Node2D" parent="."]
@@ -853,10 +853,12 @@ hframes = 7
 vframes = 2
 frame = 3
 
-[node name="WeaponOrigin" type="Position2D" parent="Sprites/BackHand"]
+[node name="WeaponPosition" type="Position2D" parent="Sprites/BackHand"]
 position = Vector2( 4, 4 )
 
-[node name="DefaultGun" parent="Sprites/BackHand/WeaponOrigin" instance=ExtResource( 2 )]
+[node name="DefaultGun" parent="Sprites/BackHand/WeaponPosition" instance=ExtResource( 2 )]
+p_range = 50
+speed = 150
 
 [node name="Body" type="Sprite" parent="Sprites"]
 position = Vector2( 8, 8 )
@@ -881,7 +883,6 @@ vframes = 2
 region_rect = Rect2( 0, 0, 96, 32 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2( 8, 11 )
 shape = SubResource( 1 )
 
