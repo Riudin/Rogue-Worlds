@@ -12,7 +12,7 @@ speed = 15
 bullet = ExtResource( 3 )
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( -2, -1 )
+position = Vector2( -4, 0 )
 texture = ExtResource( 1 )
 offset = Vector2( 7, 0 )
 

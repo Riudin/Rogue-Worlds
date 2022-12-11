@@ -4,10 +4,9 @@ extends KinematicBody2D
 
 export(int) var RUN_SPEED = 150
 export(int) var ACCELERATION = 20
-export(int) var FRICTION = 15
+export(int) var FRICTION = 25
 export(int) var MAX_FALL_SPEED = 400
 export(int) var DASH_SPEED = 600
-
 
 export(float) var JUMP_HEIGHT = 100.0
 export(float) var JUMP_TIME_TO_PEAK = 0.5
@@ -17,15 +16,14 @@ onready var jump_velocity : float = (2.0 * JUMP_HEIGHT) / JUMP_TIME_TO_PEAK * -1
 onready var jump_gravity : float = (-2.0 * JUMP_HEIGHT) / (JUMP_TIME_TO_PEAK * JUMP_TIME_TO_PEAK) * -1.0
 onready var fall_gravity : float = (-2.0 * JUMP_HEIGHT) / (JUMP_TIME_TO_DESCEND * JUMP_TIME_TO_DESCEND) * -1.0
 
-
 onready var animationPlayer = $AnimationPlayer
 # weapon needs to link to an interchangable weapon in the future. for now it's set on default
 onready var weapon = get_node("Sprites/BackHand/WeaponPosition/DefaultGun")
 
-
 var velocity = Vector2.ZERO
 var dashing = false
 var facing_right = true setget orient_sprites
+
 
 func _physics_process(delta):
 	velocity.y += get_gravity() * delta
@@ -74,14 +72,18 @@ func _physics_process(delta):
 	
 	velocity = move_and_slide(velocity, Vector2.UP)
 
+
 func apply_friction():
 	velocity.x = move_toward(velocity.x, 0, FRICTION)
+
 
 func apply_acceleration(amount):
 	velocity.x = move_toward(velocity.x, RUN_SPEED * amount, ACCELERATION)
 
+
 func get_gravity() -> float:
 	return jump_gravity if velocity.y < 0.0 else fall_gravity
+
 
 func jump():
 	velocity.y = jump_velocity
@@ -89,11 +91,13 @@ func jump():
 		dashing = false
 		velocity.x = velocity.x * 0.2
 
+
 func dash(dir):
 	dashing = true
 	velocity.x = DASH_SPEED * dir
 	yield(get_tree().create_timer(0.3), "timeout")
 	dashing = false
+
 
 func orient_sprites(right_is_new):
 	if facing_right != right_is_new && right_is_new:
@@ -104,3 +108,6 @@ func orient_sprites(right_is_new):
 		facing_right = right_is_new
 		animationPlayer.play("FlipLeft")
 
+
+func get_class(): return "Player" # used for collision detection
+func is_class(name): return name == "Player" or .is_class(name)
