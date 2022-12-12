@@ -4,11 +4,13 @@ extends KinematicBody2D
 
 export(int) var RUN_SPEED = 150
 export(int) var ACCELERATION = 20
-export(int) var FRICTION = 25
-export(int) var MAX_FALL_SPEED = 400
-export(int) var DASH_SPEED = 600
+export(int) var AIR_FRICTION = 10
+export(int) var GROUND_FRICTION = 25
+export(int) var MAX_FALL_SPEED = 350
+export(int) var DASH_SPEED = 400
+export(int) var DASH_UPWARDS_MOTION = 20
 
-export(float) var JUMP_HEIGHT = 100.0
+export(float) var JUMP_HEIGHT = 10.0
 export(float) var JUMP_TIME_TO_PEAK = 0.5
 export(float) var JUMP_TIME_TO_DESCEND = 0.4
 
@@ -23,9 +25,14 @@ onready var weapon = get_node("Sprites/BackHand/WeaponPosition/DefaultGun")
 var velocity = Vector2.ZERO
 var dashing = false
 var facing_right = true setget orient_sprites
+var FRICTION = 25
 
 
 func _physics_process(delta):
+	if not is_on_floor():
+		FRICTION = AIR_FRICTION
+	else:
+		FRICTION = GROUND_FRICTION
 	velocity.y += get_gravity() * delta
 	velocity.y =  min(velocity.y, MAX_FALL_SPEED)
 	var input = Vector2.ZERO
@@ -58,11 +65,11 @@ func _physics_process(delta):
 	if Input.is_action_pressed("fire"):
 		weapon.fire()
 	
-	if not is_on_floor():
+	if not is_on_floor() and not dashing:
 		animationPlayer.play("Jump")
 	
 	if dashing:
-		velocity.y = -40
+		velocity.y = -DASH_UPWARDS_MOTION
 		velocity.y = move_toward(velocity.y, 0, (get_gravity() * delta) / 2)
 	
 	if self.global_position <= get_global_mouse_position():
@@ -95,7 +102,13 @@ func jump():
 func dash(dir):
 	dashing = true
 	velocity.x = DASH_SPEED * dir
+	if dir > 0:
+		animationPlayer.play("DashRight")
+	elif dir < 0:
+		animationPlayer.play("DashLeft")
 	yield(get_tree().create_timer(0.3), "timeout")
+	if animationPlayer.is_playing():
+		yield(animationPlayer, "animation_finished")
 	dashing = false
 
 

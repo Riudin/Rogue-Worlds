@@ -4,7 +4,7 @@
 [ext_resource path="res://Enemies/Enemy.gd" type="Script" id=2]
 [ext_resource path="res://Sprites/white_box.png" type="Texture" id=3]
 [ext_resource path="res://Utility/PlayerDetectionZone.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Items/ImpBullet.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Items/Weapons/ImpBullet.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Utility/SoftCollision.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Utility/Hitbox.tscn" type="PackedScene" id=8]
 

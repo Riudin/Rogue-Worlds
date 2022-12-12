@@ -1,14 +1,14 @@
 [gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://Sprites/default_bullet.png" type="Texture" id=1]
-[ext_resource path="res://Items/Projectile.gd" type="Script" id=2]
+[ext_resource path="res://Items/Weapons/Projectile.gd" type="Script" id=1]
+[ext_resource path="res://Sprites/default_bullet.png" type="Texture" id=2]
 
 [sub_resource type="AtlasTexture" id=8]
-atlas = ExtResource( 1 )
+atlas = ExtResource( 2 )
 region = Rect2( 0, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=9]
-atlas = ExtResource( 1 )
+atlas = ExtResource( 2 )
 region = Rect2( 16, 0, 16, 16 )
 
 [sub_resource type="SpriteFrames" id=7]
@@ -26,7 +26,7 @@ height = 6.0
 [node name="Bullet" type="Area2D"]
 collision_layer = 16
 collision_mask = 2
-script = ExtResource( 2 )
+script = ExtResource( 1 )
 projectile_type = "friendly"
 
 [node name="Sprite" type="AnimatedSprite" parent="."]

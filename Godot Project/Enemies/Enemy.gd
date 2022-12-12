@@ -3,7 +3,7 @@ extends KinematicBody2D
 export(int) var RUN_SPEED = 100
 export(int) var ACCELERATION = 1200
 export(int) var FRICTION = 25*60
-export(int) var KNOCKBACK = 2
+export(int) var KNOCKBACK = 5
 #export(int) var MAX_FALL_SPEED = 400
 ##export(int) var DASH_SPEED = 600
 #
@@ -23,6 +23,8 @@ export(int) var damage = 2
 export(int) var gravity = 20
 export(int) var projectile_range = 100
 export(int) var projectile_speed = 400
+export(int) var detection_radius = 1
+export(float) var cooldown = 4
 export(String, "normal", "boss") var enemy_type = "normal"
 export(String) var boss_name = null
 export(PackedScene) onready var projectile
@@ -30,25 +32,31 @@ export(PackedScene) onready var projectile
 enum {
 	IDLE,
 	CHASE,
-	SHOOT
+	SHOOT,
+	ATTACK
 }
 
 onready var ray_cast = $RayCast2D
 onready var health_bar = $HealthBar
 onready var sprite = $Sprite
 onready var player_detection_zone = $PlayerDetectionZone
-onready var shoot_origin = $ShootOrigin
+onready var attack_range = $AttackRange
+onready var shoot_origin = get_node_or_null("ShootOrigin")
 onready var shoot_timer = $ShootTimer
-#onready var soft_collision = $SoftCollision
+onready var attack_timer = $AttackTimer
+onready var animation_player = $AnimationPlayer
+onready var hitbox = $Hitbox
+onready var soft_collision = $SoftCollision
 
 var velocity = Vector2.ZERO
 #var facing_right = true setget orient_sprites
 var stun = false
+var push_mod = 750
 var direction = 1   #1 == right and -1 == left
 var facing_right = true
 var state = IDLE 
 var can_shoot = true
-var cooldown = 4
+var can_attack = true
 var player = null setget new_player
 
 func new_player(new_player):
@@ -61,28 +69,41 @@ func _ready():
 	health_bar.max_value = health
 	health_bar.value = health
 	health_bar.set_as_toplevel(true)
+	player_detection_zone.get_node("CollisionShape2D").scale.x *= detection_radius
+	player_detection_zone.get_node("CollisionShape2D").scale.y *= detection_radius
 	if enemy_type == "normal": boss_name = null
 
 
 func _process(_delta):
-	health_bar.set_position(position - Vector2(6, 30))
+	health_bar.set_position(position - Vector2(6, 35))
 
 
 func _physics_process(delta):
+	if !shoot_origin: can_shoot = false       #just temporary to make non shooting enemies
 	velocity.y += gravity
+	if soft_collision.is_colliding():
+		velocity += soft_collision.get_push_vector() * delta * push_mod
+	
 #	velocity.x = speed * direction
 #	if ray_cast.is_colliding():
 #		direction *= -1
-	if facing_right: 
-		ray_cast.scale.x = 1
-	else:
-		ray_cast.scale.x = -1
+	
+	if stun == false:
+		if facing_right: 
+			ray_cast.scale.x = 1
+			sprite.flip_h = true
+			hitbox.scale.x = -1
+		else:
+			ray_cast.scale.x = -1
+			sprite.flip_h = false
+			hitbox.scale.x = 1
 	
 	velocity = move_and_slide(velocity)
 	
 	match state:
 		IDLE:
 			velocity = velocity.move_toward(Vector2.ZERO, FRICTION * delta)
+			animation_player.play("Move")
 			seek_player()
 			#check_wander_timer()
 			
@@ -106,6 +127,8 @@ func _physics_process(delta):
 		CHASE:
 			if can_shoot:
 				state = SHOOT
+			elif can_attack:
+				state = ATTACK
 			self.player = player_detection_zone.player
 			if player != null:
 				accelerate_to_point(player.global_position, delta) #much better way of getting the right vector
@@ -127,6 +150,22 @@ func _physics_process(delta):
 #			yield(get_tree().create_timer(2.0), "timeout")
 			fire()
 			seek_player()
+		
+		ATTACK:
+			self.player = player_detection_zone.player
+			attack()
+			seek_player()
+
+
+func attack():
+	if can_attack:
+		animation_player.play("Attack")
+#		if facing_right:
+#			animation_player.play("AttackRight")
+#		else:
+#			animation_player.play("AttackLeft")
+		yield(animation_player, "animation_finished")
+		can_attack = true
 
 
 func fire():
@@ -152,7 +191,8 @@ func accelerate_to_point(point, delta):
 	if velocity.x > 0:
 		facing_right = true
 	elif velocity.x < 0:
-		facing_right = false		
+		facing_right = false
+	animation_player.play("Move")
 
 
 #########################################################
@@ -191,8 +231,11 @@ func seek_player():
 	if player_detection_zone.can_see_player():
 		if can_shoot:
 			state = SHOOT
+		elif attack_range.player_in_attack_range():
+			if can_attack:
+				state = ATTACK
 		else:	
-			state = CHASE	
+			state = CHASE
 
 
 func apply_damage(dmg):
@@ -200,21 +243,26 @@ func apply_damage(dmg):
 	health_bar.visible = true
 	health_bar.value = health
 	if stun == false:
-		apply_stun(0.1)
+		apply_stun(0.3)
 	if health <= 0:
 		on_destroy()
 
 
 func apply_stun(time):
 	velocity = - velocity * KNOCKBACK
-	sprite.modulate = Color.red
+	if velocity == Vector2.ZERO:
+		if player.global_position.x < self.global_position.x:
+			velocity.x = 200
+		elif player.global_position.x > self.global_position.x:
+			velocity.x = -200
+#	sprite.modulate = Color.red
 	stun = true
 	$StunTimer.set_wait_time(time)
 	$StunTimer.start()
 
 
 func _on_StunTimer_timeout():
-	sprite.modulate = Color.white
+#	sprite.modulate = Color.white
 	stun = false
 
 
@@ -224,6 +272,10 @@ func on_destroy():
 
 func _on_ShootTimer_timeout():
 	can_shoot = true
+
+
+func _on_AttackTimer_timeout():
+	can_attack = true
 
 
 func get_class(): return "Enemy" # used for collision detection
