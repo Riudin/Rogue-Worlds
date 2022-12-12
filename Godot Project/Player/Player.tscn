@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://Sprites/default-character.png" type="Texture" id=1]
 [ext_resource path="res://Items/Weapons/DefaultGun.tscn" type="PackedScene" id=2]
@@ -1122,6 +1122,72 @@ tracks/9/keys = {
 "values": [ 0.0, 0.0 ]
 }
 
+[sub_resource type="AnimationNodeAnimation" id=24]
+animation = "Run"
+
+[sub_resource type="AnimationNodeAnimation" id=25]
+animation = "Jump"
+
+[sub_resource type="AnimationNodeAnimation" id=26]
+animation = "DashRight"
+
+[sub_resource type="AnimationNodeAnimation" id=27]
+animation = "DashLeft"
+
+[sub_resource type="AnimationNodeAnimation" id=28]
+animation = "Idle"
+
+[sub_resource type="AnimationNodeTransition" id=29]
+input_count = 2
+input_0/name = "right"
+input_0/auto_advance = false
+input_1/name = "left"
+input_1/auto_advance = false
+
+[sub_resource type="AnimationNodeTransition" id=30]
+input_count = 2
+input_0/name = "jumping"
+input_0/auto_advance = false
+input_1/name = "dashing"
+input_1/auto_advance = true
+
+[sub_resource type="AnimationNodeTransition" id=31]
+input_count = 2
+input_0/name = "ground"
+input_0/auto_advance = false
+input_1/name = "air"
+input_1/auto_advance = false
+
+[sub_resource type="AnimationNodeTransition" id=32]
+input_count = 2
+input_0/name = "Idle"
+input_0/auto_advance = false
+input_1/name = "Run"
+input_1/auto_advance = false
+
+[sub_resource type="AnimationNodeBlendTree" id=33]
+graph_offset = Vector2( -343.688, 125.851 )
+nodes/Animation/node = SubResource( 28 )
+nodes/Animation/position = Vector2( -120, 160 )
+"nodes/Animation 2/node" = SubResource( 24 )
+"nodes/Animation 2/position" = Vector2( -120, 280 )
+"nodes/Animation 3/node" = SubResource( 25 )
+"nodes/Animation 3/position" = Vector2( -340, 400 )
+"nodes/Animation 4/node" = SubResource( 26 )
+"nodes/Animation 4/position" = Vector2( -340, 540 )
+"nodes/Animation 5/node" = SubResource( 27 )
+"nodes/Animation 5/position" = Vector2( -340, 680 )
+nodes/dash_direction/node = SubResource( 29 )
+nodes/dash_direction/position = Vector2( -100, 580 )
+nodes/in_air/node = SubResource( 30 )
+nodes/in_air/position = Vector2( 100, 460 )
+nodes/in_air_state/node = SubResource( 31 )
+nodes/in_air_state/position = Vector2( 320, 320 )
+nodes/movement/node = SubResource( 32 )
+nodes/movement/position = Vector2( 100, 180 )
+nodes/output/position = Vector2( 540, 320 )
+node_connections = [ "in_air", 0, "Animation 3", "in_air", 1, "dash_direction", "movement", 0, "Animation", "movement", 1, "Animation 2", "in_air_state", 0, "movement", "in_air_state", 1, "in_air", "dash_direction", 0, "Animation 4", "dash_direction", 1, "Animation 5", "output", 0, "in_air_state" ]
+
 [node name="Player" type="KinematicBody2D" groups=["Player"]]
 collision_mask = 7
 script = ExtResource( 5 )
@@ -1195,6 +1261,15 @@ anims/Idle = SubResource( 4 )
 anims/Jump = SubResource( 19 )
 anims/RESET = SubResource( 5 )
 anims/Run = SubResource( 6 )
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource( 33 )
+anim_player = NodePath("../AnimationPlayer")
+active = true
+parameters/dash_direction/current = 1
+parameters/in_air/current = 0
+parameters/in_air_state/current = 0
+parameters/movement/current = 0
 
 [node name="Camera2D" type="Camera2D" parent="."]
 offset = Vector2( 8, 8 )

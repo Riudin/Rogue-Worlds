@@ -18,7 +18,8 @@ onready var jump_velocity : float = (2.0 * JUMP_HEIGHT) / JUMP_TIME_TO_PEAK * -1
 onready var jump_gravity : float = (-2.0 * JUMP_HEIGHT) / (JUMP_TIME_TO_PEAK * JUMP_TIME_TO_PEAK) * -1.0
 onready var fall_gravity : float = (-2.0 * JUMP_HEIGHT) / (JUMP_TIME_TO_DESCEND * JUMP_TIME_TO_DESCEND) * -1.0
 
-onready var animationPlayer = $AnimationPlayer
+onready var animation_player = $AnimationPlayer
+onready var animation_tree = $AnimationTree
 # weapon needs to link to an interchangable weapon in the future. for now it's set on default
 onready var weapon = get_node("Sprites/BackHand/WeaponPosition/DefaultGun")
 
@@ -26,6 +27,10 @@ var velocity = Vector2.ZERO
 var dashing = false
 var facing_right = true setget orient_sprites
 var FRICTION = 25
+
+
+func _ready():
+	animation_tree.active = true
 
 
 func _physics_process(delta):
@@ -46,11 +51,12 @@ func _physics_process(delta):
 	if input.x == 0:
 		apply_friction()
 		if is_on_floor():
-			animationPlayer.play("Idle")
+			animation_tree.set("parameters/movement/current", 0)
+			
 	else:
 		apply_acceleration(input.x)
 		if is_on_floor():
-			animationPlayer.play("Run")
+			animation_tree.set("parameters/movement/current", 1)
 		
 		if input.x > 0:
 			if velocity.x < 0:
@@ -65,8 +71,10 @@ func _physics_process(delta):
 	if Input.is_action_pressed("fire"):
 		weapon.fire()
 	
-	if not is_on_floor() and not dashing:
-		animationPlayer.play("Jump")
+	if is_on_floor():
+		animation_tree.set("parameters/in_air_state/current", 0)
+	else:
+		animation_tree.set("parameters/in_air_state/current", 1)
 	
 	if dashing:
 		velocity.y = -DASH_UPWARDS_MOTION
@@ -102,24 +110,25 @@ func jump():
 func dash(dir):
 	dashing = true
 	velocity.x = DASH_SPEED * dir
-	if dir > 0:
-		animationPlayer.play("DashRight")
+	if dir >= 0:
+		animation_tree.set("parameters/dash_direction/current", 0)
 	elif dir < 0:
-		animationPlayer.play("DashLeft")
+		animation_tree.set("parameters/dash_direction/current", 1)
+	animation_tree.set("parameters/in_air/current", 1)
 	yield(get_tree().create_timer(0.3), "timeout")
-	if animationPlayer.is_playing():
-		yield(animationPlayer, "animation_finished")
+
 	dashing = false
+	
 
 
 func orient_sprites(right_is_new):
 	if facing_right != right_is_new && right_is_new:
 		facing_right = right_is_new
-		animationPlayer.play("FlipRight")
+		animation_player.play("FlipRight")
 	
 	elif facing_right != right_is_new && !right_is_new:
 		facing_right = right_is_new
-		animationPlayer.play("FlipLeft")
+		animation_player.play("FlipLeft")
 
 
 func get_class(): return "Player" # used for collision detection
