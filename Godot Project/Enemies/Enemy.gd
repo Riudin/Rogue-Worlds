@@ -26,7 +26,7 @@ export(int) var projectile_speed = 400
 export(bool) var projectile_piercing = false
 export(bool) var projectile_stationary = false
 export(int) var detection_radius = 1
-export(float) var cooldown = 4
+export(float) var cooldown = 4.0
 export(bool) var can_fly = false
 export(bool) var can_pass_walls = false
 export(String, "normal", "boss") var enemy_type = "normal"
@@ -158,11 +158,13 @@ func _physics_process(delta):
 #				animation_player.play("AttackLeft")	
 			velocity = Vector2.ZERO
 			animation_player.play("Shoot")
-			shoot_delay_timer.start(0.5)
-#			yield(get_tree().create_timer(0.5), "timeout")
+#			shoot_delay_timer.start(0.5)
+#			yield(shoot_delay_timer, "timeout")
+			yield(get_tree().create_timer(0.5), "timeout")
 			fire()
-			shoot_delay_timer.start(0.5)
-#			yield(get_tree().create_timer(0.5), "timeout")
+#			shoot_delay_timer.start(0.5)
+#			yield(shoot_delay_timer, "timeout")
+			yield(get_tree().create_timer(0.5), "timeout")
 			seek_player()
 		
 		ATTACK:
