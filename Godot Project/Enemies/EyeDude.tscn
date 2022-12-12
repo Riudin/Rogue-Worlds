@@ -105,6 +105,8 @@ nine_patch_stretch = true
 
 [node name="ShootTimer" type="Timer" parent="."]
 
+[node name="ShootDelayTimer" type="Timer" parent="."]
+
 [node name="AttackTimer" type="Timer" parent="."]
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
@@ -147,6 +149,7 @@ position = Vector2( 0, -16 )
 
 [connection signal="timeout" from="StunTimer" to="." method="_on_StunTimer_timeout"]
 [connection signal="timeout" from="ShootTimer" to="." method="_on_ShootTimer_timeout"]
+[connection signal="timeout" from="ShootDelayTimer" to="." method="_on_ShootDelayTimer_timeout"]
 [connection signal="timeout" from="AttackTimer" to="." method="_on_AttackTimer_timeout"]
 
 [editable path="SoftCollision"]

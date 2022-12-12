@@ -9,6 +9,7 @@ export(int) var recoil = 0 setget ,get_recoil				#decide if we want recoil or no
 export(PackedScene) onready var bullet
 onready var aim_pos = get_node("AimPosition")
 onready var player = get_parent().get_parent().get_parent().get_parent()
+onready var animation_player = $AnimationPlayer
 
 var last_shot = 0
 var can_fire = false
@@ -22,14 +23,25 @@ func _physics_process(_delta):
 	look_at(get_global_mouse_position())
 	rotation = clamp(rotation, -PI/4, PI/4)
 
-func fire():
+
+func start_fire_animation():
 	if last_shot < cooldown: 
 		can_fire = false
 		return 
 	else: last_shot = 0
 	can_fire = true
+	animation_player.play("Shoot")
+
+
+func fire():
+#	if last_shot < cooldown: 
+#		can_fire = false
+#		return 
+#	else: last_shot = 0
+#	can_fire = true
 	
-	player.screen_shaker._shake(0.1, 0.3)
+	#decide if we want screenshake or not
+	#player.screen_shaker._shake(0.1, 0.3)
 	
 	var projectile = bullet.instance()
 	projectile.add_to_group("projectiles")

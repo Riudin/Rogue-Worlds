@@ -75,7 +75,7 @@ func _physics_process(delta):
 			jump()
 	
 	if Input.is_action_pressed("fire"):
-		weapon.fire()
+		weapon.start_fire_animation()
 		var weapon_recoil = weapon.get_recoil()
 		if facing_right and weapon.can_fire:
 			velocity.x -= weapon_recoil

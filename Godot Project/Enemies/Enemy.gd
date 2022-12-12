@@ -48,6 +48,7 @@ onready var attack_range = get_node_or_null("AttackRange")
 onready var shoot_origin = get_node_or_null("ShootOrigin")
 onready var attack_timer = get_node_or_null("AttackTimer")
 onready var shoot_timer = get_node_or_null("ShootTimer")
+onready var shoot_delay_timer = get_node_or_null("ShootDelayTimer")
 onready var animation_player = $AnimationPlayer
 onready var hitbox = $Hitbox
 onready var soft_collision = $SoftCollision
@@ -157,9 +158,11 @@ func _physics_process(delta):
 #				animation_player.play("AttackLeft")	
 			velocity = Vector2.ZERO
 			animation_player.play("Shoot")
-			yield(get_tree().create_timer(0.5), "timeout")
+			shoot_delay_timer.start(0.5)
+#			yield(get_tree().create_timer(0.5), "timeout")
 			fire()
-			yield(get_tree().create_timer(0.5), "timeout")
+			shoot_delay_timer.start(0.5)
+#			yield(get_tree().create_timer(0.5), "timeout")
 			seek_player()
 		
 		ATTACK:
@@ -294,3 +297,7 @@ func _on_AttackTimer_timeout():
 
 func get_class(): return "Enemy" # used for collision detection
 func is_class(name): return name == "Enemy" or .is_class(name)
+
+
+func _on_ShootDelayTimer_timeout():
+	pass # Replace with function body.
