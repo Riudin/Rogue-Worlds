@@ -23,6 +23,7 @@ onready var animation_player = $AnimationPlayer
 onready var animation_tree = $AnimationTree
 onready var stun_timer = $StunTimer
 onready var weapon_pos = $Sprites/BackHand/WeaponPosition
+onready var screen_shaker = $Camera2D/ScreenShaker
 # weapon needs to link to an interchangable weapon in the future. for now it's set on default
 onready var weapon = weapon_pos.get_child(0)
 #export(PackedScene) onready var weapon
@@ -75,6 +76,11 @@ func _physics_process(delta):
 	
 	if Input.is_action_pressed("fire"):
 		weapon.fire()
+		var weapon_recoil = weapon.get_recoil()
+		if facing_right and weapon.can_fire:
+			velocity.x -= weapon_recoil
+		elif not facing_right and weapon.can_fire:
+			velocity.x += weapon_recoil
 	
 	if is_on_floor():
 		animation_tree.set("parameters/in_air_state/current", 0)

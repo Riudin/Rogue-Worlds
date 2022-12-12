@@ -23,8 +23,12 @@ export(int) var damage = 1
 export(int) var gravity = 20
 export(int) var projectile_range = 100
 export(int) var projectile_speed = 400
+export(bool) var projectile_piercing = false
+export(bool) var projectile_stationary = false
 export(int) var detection_radius = 1
 export(float) var cooldown = 4
+export(bool) var can_fly = false
+export(bool) var can_pass_walls = false
 export(String, "normal", "boss") var enemy_type = "normal"
 export(String) var boss_name = null
 export(PackedScene) onready var projectile
@@ -72,6 +76,8 @@ func _ready():
 	player_detection_zone.get_node("CollisionShape2D").scale.x *= detection_radius
 	player_detection_zone.get_node("CollisionShape2D").scale.y *= detection_radius
 	if enemy_type == "normal": boss_name = null
+	if can_pass_walls:
+		self.set_collision_mask(1)
 
 
 func _process(_delta):
@@ -81,7 +87,8 @@ func _process(_delta):
 func _physics_process(delta):
 	if !shoot_origin: can_shoot = false       #just temporary to make non shooting enemies
 	if !attack_range: can_attack = false      #for only shooting enemies
-	velocity.y += gravity
+	if can_fly == false:
+		velocity.y += gravity
 	if soft_collision.is_colliding():
 		velocity += soft_collision.get_push_vector() * delta * push_mod
 	
@@ -148,8 +155,11 @@ func _physics_process(delta):
 #				animation_player.play("AttackRight")
 #			else:
 #				animation_player.play("AttackLeft")	
-#			yield(get_tree().create_timer(2.0), "timeout")
+			velocity = Vector2.ZERO
+			animation_player.play("Shoot")
+			yield(get_tree().create_timer(0.5), "timeout")
 			fire()
+			yield(get_tree().create_timer(0.5), "timeout")
 			seek_player()
 		
 		ATTACK:
@@ -176,11 +186,15 @@ func fire():
 		get_node("/root").add_child(new_p)
 		
 		new_p.position = shoot_origin.global_position
-		new_p.rotation = projectile_direction.angle()
+		if projectile_stationary:
+			new_p.rotation = 0
+		else:
+			new_p.rotation = projectile_direction.angle()
 		new_p.projectile_direction = projectile_direction
 		new_p.projectile_speed = projectile_speed
 		new_p.damage = damage
 		new_p.projectile_range = projectile_range
+		new_p.piercing = projectile_piercing
 		
 		shoot_timer.start(cooldown)
 		can_shoot = false
