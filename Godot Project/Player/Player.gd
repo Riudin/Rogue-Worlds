@@ -1,5 +1,4 @@
 extends KinematicBody2D
-#class_name Player
 
 
 export(int) var RUN_SPEED = 150
@@ -9,6 +8,8 @@ export(int) var GROUND_FRICTION = 25
 export(int) var MAX_FALL_SPEED = 350
 export(int) var DASH_SPEED = 400
 export(int) var DASH_UPWARDS_MOTION = 20
+export(int) var KNOCKBACK = 5
+export(int) var HEALTH = 5
 
 export(float) var JUMP_HEIGHT = 10.0
 export(float) var JUMP_TIME_TO_PEAK = 0.5
@@ -20,11 +21,15 @@ onready var fall_gravity : float = (-2.0 * JUMP_HEIGHT) / (JUMP_TIME_TO_DESCEND 
 
 onready var animation_player = $AnimationPlayer
 onready var animation_tree = $AnimationTree
+onready var stun_timer = $StunTimer
+onready var weapon_pos = $Sprites/BackHand/WeaponPosition
 # weapon needs to link to an interchangable weapon in the future. for now it's set on default
-onready var weapon = get_node("Sprites/BackHand/WeaponPosition/DefaultGun")
+onready var weapon = weapon_pos.get_child(0)
+#export(PackedScene) onready var weapon
 
 var velocity = Vector2.ZERO
 var dashing = false
+var stun = false
 var facing_right = true setget orient_sprites
 var FRICTION = 25
 
@@ -85,6 +90,9 @@ func _physics_process(delta):
 	else:
 		self.facing_right = false
 	
+	#if stun: velocity = Vector2.ZERO
+	#activate for stun
+	
 	velocity = move_and_slide(velocity, Vector2.UP)
 
 
@@ -116,9 +124,31 @@ func dash(dir):
 		animation_tree.set("parameters/dash_direction/current", 1)
 	animation_tree.set("parameters/in_air/current", 1)
 	yield(get_tree().create_timer(0.3), "timeout")
-
 	dashing = false
-	
+
+
+func apply_damage(dmg):
+	HEALTH -= dmg
+	print("took ",dmg," damage")
+	if stun == false:
+		apply_stun(0.3)
+	if HEALTH <= 0:
+		on_death()
+		print("dead")
+
+
+func apply_stun(time):
+	#velocity = -velocity * KNOCKBACK
+	#if velocity == Vector2.ZERO:
+	#needs to be handled
+	#also does nothing atm. enable just before move_and_slide funcion in _physics_process
+	stun = true
+	$StunTimer.set_wait_time(time)
+	$StunTimer.start()
+
+
+func on_death():
+	pass
 
 
 func orient_sprites(right_is_new):
@@ -133,3 +163,7 @@ func orient_sprites(right_is_new):
 
 func get_class(): return "Player" # used for collision detection
 func is_class(name): return name == "Player" or .is_class(name)
+
+
+func _on_StunTimer_timeout():
+	stun = false

@@ -17,9 +17,9 @@ export(int) var KNOCKBACK = 5
 
 
 
-export(int) var health = 4
+export(int) var health = 10
 #export(int) var speed = 500
-export(int) var damage = 2
+export(int) var damage = 1
 export(int) var gravity = 20
 export(int) var projectile_range = 100
 export(int) var projectile_speed = 400
@@ -40,10 +40,10 @@ onready var ray_cast = $RayCast2D
 onready var health_bar = $HealthBar
 onready var sprite = $Sprite
 onready var player_detection_zone = $PlayerDetectionZone
-onready var attack_range = $AttackRange
+onready var attack_range = get_node_or_null("AttackRange")
 onready var shoot_origin = get_node_or_null("ShootOrigin")
-onready var shoot_timer = $ShootTimer
-onready var attack_timer = $AttackTimer
+onready var attack_timer = get_node_or_null("AttackTimer")
+onready var shoot_timer = get_node_or_null("ShootTimer")
 onready var animation_player = $AnimationPlayer
 onready var hitbox = $Hitbox
 onready var soft_collision = $SoftCollision
@@ -80,6 +80,7 @@ func _process(_delta):
 
 func _physics_process(delta):
 	if !shoot_origin: can_shoot = false       #just temporary to make non shooting enemies
+	if !attack_range: can_attack = false      #for only shooting enemies
 	velocity.y += gravity
 	if soft_collision.is_colliding():
 		velocity += soft_collision.get_push_vector() * delta * push_mod
@@ -231,7 +232,7 @@ func seek_player():
 	if player_detection_zone.can_see_player():
 		if can_shoot:
 			state = SHOOT
-		elif attack_range.player_in_attack_range():
+		elif attack_range and attack_range.player_in_attack_range():
 			if can_attack:
 				state = ATTACK
 		else:	
@@ -262,7 +263,6 @@ func apply_stun(time):
 
 
 func _on_StunTimer_timeout():
-#	sprite.modulate = Color.white
 	stun = false
 
 

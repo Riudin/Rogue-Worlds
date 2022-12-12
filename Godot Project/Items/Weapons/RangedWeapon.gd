@@ -1,8 +1,8 @@
 extends Node2D
 
-export(int) var cooldown = 10
-export(int) var p_range = 100
-export(int) var speed = 400
+export(int) var cooldown = 30
+export(int) var p_range = 30
+export(int) var speed = 50
 export(int) var damage = 1
 
 export(PackedScene) onready var bullet

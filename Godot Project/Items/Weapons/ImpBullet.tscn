@@ -26,7 +26,6 @@ height = 6.0
 [node name="Bullet" type="Area2D"]
 collision_layer = 16
 script = ExtResource( 1 )
-projectile_type = "friendly"
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 5 )

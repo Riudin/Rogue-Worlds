@@ -1,7 +1,7 @@
 [gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://Sprites/default-character.png" type="Texture" id=1]
-[ext_resource path="res://Items/Weapons/DefaultGun.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Items/Weapons/BoneBow.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Player/Player.gd" type="Script" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -1222,9 +1222,7 @@ frame = 3
 [node name="WeaponPosition" type="Position2D" parent="Sprites/BackHand"]
 position = Vector2( 4, 4 )
 
-[node name="DefaultGun" parent="Sprites/BackHand/WeaponPosition" instance=ExtResource( 2 )]
-p_range = 50
-speed = 150
+[node name="BoneBow" parent="Sprites/BackHand/WeaponPosition" instance=ExtResource( 2 )]
 
 [node name="Body" type="Sprite" parent="Sprites"]
 position = Vector2( 8, 8 )
@@ -1274,3 +1272,7 @@ parameters/movement/current = 0
 [node name="Camera2D" type="Camera2D" parent="."]
 offset = Vector2( 8, 8 )
 current = true
+
+[node name="StunTimer" type="Timer" parent="."]
+
+[connection signal="timeout" from="StunTimer" to="." method="_on_StunTimer_timeout"]

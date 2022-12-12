@@ -1,13 +1,11 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://Items/Weapons/DefaultGun.gd" type="Script" id=1]
+[ext_resource path="res://Items/Weapons/RangedWeapon.gd" type="Script" id=1]
 [ext_resource path="res://Items/Weapons/Bullet.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Sprites/default-gun.png" type="Texture" id=3]
 
 [node name="DefaultGun" type="Node2D"]
 script = ExtResource( 1 )
-cooldown = 30
-p_range = 30
 speed = 15
 bullet = ExtResource( 2 )
 
