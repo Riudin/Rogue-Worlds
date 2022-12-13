@@ -32,6 +32,7 @@ export(bool) var can_pass_walls = false
 export(String, "normal", "boss") var enemy_type = "normal"
 export(String) var boss_name = null
 export(PackedScene) onready var projectile
+export(Resource) var drop
 
 enum {
 	IDLE,
@@ -39,6 +40,8 @@ enum {
 	SHOOT,
 	ATTACK
 }
+
+onready var spawnedItem = preload("res://Items/SpawnedItem.tscn")
 
 onready var ray_cast = $RayCast2D
 onready var health_bar = $HealthBar
@@ -213,38 +216,6 @@ func accelerate_to_point(point, delta):
 	elif velocity.x < 0:
 		facing_right = false
 	animation_player.play("Move")
-
-
-#########################################################
-#func move():
-##	if stun == false:
-##		velocity = velocity.normalized() * speed
-###		if soft_collision.is_colliding():
-###			velocity += soft_collision.get_push_vector() * 25
-#	velocity.x += RUN_SPEED * direction
-#	if is_on_wall():
-#		direction = direction * -1
-#
-#
-#	velocity = move_and_slide(velocity)
-#	elif stun:
-#		velocity = lerp(velocity, Vector2.ZERO, 0.6)
-#########################################################
-
-#func apply_friction():
-#	velocity.x = move_toward(velocity.x, 0, FRICTION)
-#
-#
-#func apply_acceleration(amount):
-#	velocity.x = move_toward(velocity.x, RUN_SPEED * amount, ACCELERATION)
-
-
-#func get_gravity() -> float:
-#	return jump_gravity if velocity.y < 0.0 else fall_gravity
-#
-#
-#func jump():
-#	velocity.y = jump_velocity
 
 
 func seek_player():

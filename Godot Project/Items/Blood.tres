@@ -7,4 +7,4 @@
 script = ExtResource( 1 )
 name = "Blood"
 texture = ExtResource( 2 )
-max_stack_size = 3
+max_stack_size = 2
