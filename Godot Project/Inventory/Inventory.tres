@@ -6,4 +6,4 @@
 
 [resource]
 script = ExtResource( 1 )
-items = [ null, ExtResource( 2 ), ExtResource( 3 ), ExtResource( 3 ), null, ExtResource( 2 ), null, ExtResource( 2 ), null ]
+items = [ null, ExtResource( 2 ), ExtResource( 3 ), ExtResource( 3 ), null, ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ) ]

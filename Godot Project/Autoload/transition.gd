@@ -23,7 +23,7 @@ func transition(scene: String):
 	0.5, Tween.TRANS_LINEAR, Tween.EASE_OUT)
 	tween.start()
 	yield(tween, "tween_completed")
-	var res = get_tree().change_scene(scene)
+	var _res = get_tree().change_scene(scene)
 	tween.interpolate_property(black_cover, "color", Color(0,0,0,1), Color(0,0,0,0),
 	0.5, Tween.TRANS_LINEAR, Tween.EASE_IN)
 	tween.start()

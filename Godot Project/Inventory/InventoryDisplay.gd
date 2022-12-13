@@ -21,6 +21,6 @@ func _on_items_changed(indexes):
 		update_inventory_slot_display(item_index)
 
 func _unhandled_input(event):
-	if Input.is_action_just_released("ui_left_mouse"):
+	if event.is_action_released("ui_left_mouse"):
 		if inventory.drag_data is Dictionary:
 			inventory.set_item(inventory.drag_data.item_index, inventory.drag_data.item)

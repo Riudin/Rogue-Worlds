@@ -7,3 +7,4 @@
 script = ExtResource( 1 )
 name = "Eye"
 texture = ExtResource( 2 )
+max_stack_size = 1

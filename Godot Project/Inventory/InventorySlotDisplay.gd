@@ -8,7 +8,10 @@ onready var itemAmountLabel = $ItemTextureRect/ItemAmountLabel
 func display_item(item):
 	if item is Item:
 		itemTextureRect.texture = item.texture
-		itemAmountLabel.text = str(item.amount)
+		if item.amount > 1:
+			itemAmountLabel.text = str(item.amount)
+		else:
+			itemAmountLabel.text = ""
 	else:
 		itemTextureRect.texture = load("res://Inventory/Assets/inventory_slot_a_bg.png")
 		itemAmountLabel.text = ""
@@ -32,9 +35,12 @@ func can_drop_data(_position, data):
 func drop_data(_position, data):
 	var my_item_index = get_index()
 	var my_item = inventory.items[my_item_index]
-	if my_item is Item and my_item.name == data.item.name:
+
+	#allow stacking
+	if my_item is Item and my_item.name == data.item.name and data.item.amount + my_item.amount <= data.item.max_stack_size:
 		my_item.amount += data.item.amount
 		inventory.emit_signal("items_changed", [my_item_index])
+		
 	else:
 		inventory.swap_items(my_item_index, data.item_index)
 		inventory.set_item(my_item_index, data.item)
