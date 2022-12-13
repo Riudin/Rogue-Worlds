@@ -257,6 +257,11 @@ func _on_StunTimer_timeout():
 
 
 func on_destroy():
+	if drop:
+		var drop_instance = spawnedItem.instance()
+		drop_instance.item_resource = drop
+		drop_instance.global_position = self.global_position
+		get_node("/root").add_child(drop_instance)
 	queue_free()
 
 

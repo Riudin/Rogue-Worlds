@@ -10,10 +10,12 @@ var being_picked_up = false
 onready var player = get_node("/root/World/Player")
 onready var playerDetectionZone = $PlayerDetectionZone
 onready var pickupRange = $PlayerDetectionZone
+onready var sprite = $Sprite
 
 
 func _ready():
 	item_resource = item_resource.duplicate()
+	sprite.texture = item_resource.texture
 	Events.connect("item_pick_up_successful", self, "_on_item_pick_up_successful")
 
 func _physics_process(delta):
