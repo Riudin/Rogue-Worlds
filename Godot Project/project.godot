@@ -32,7 +32,8 @@ config/icon="res://icon.png"
 
 [autoload]
 
-Transition="*res://Autoload/transition.gd"
+Transition="*res://Autoload/Transition.gd"
+Events="*res://Autoload/Events.gd"
 
 [display]
 

@@ -206,8 +206,8 @@ func fire():
 
 
 func accelerate_to_point(point, delta):
-	var direction = global_position.direction_to(point)
-	velocity = velocity.move_toward(direction * RUN_SPEED, ACCELERATION * delta)
+	var dir = global_position.direction_to(point)
+	velocity = velocity.move_toward(dir * RUN_SPEED, ACCELERATION * delta)
 	if velocity.x > 0:
 		facing_right = true
 	elif velocity.x < 0:

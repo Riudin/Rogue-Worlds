@@ -6,7 +6,11 @@ signal items_changed(indexes)
 var drag_data = null
 
 export(Array, Resource) var items = [
-	null, null, null, null, null, null, null, null, null
+	null, null, null, null, null, null, 
+	null, null, null, null, null, null,
+	null, null, null, null, null, null,
+	null, null, null, null, null, null,
+	null, null, null, null, null, null
 ]
 
 func set_item(item_index, item):

@@ -16,26 +16,27 @@ script = ExtResource( 6 )
 visible = false
 anchor_top = 0.5
 anchor_bottom = 0.5
-margin_left = 64.0
+margin_left = 40.0
 margin_top = -26.0
-margin_right = 116.0
-margin_bottom = 26.0
+margin_right = 143.0
+margin_bottom = 60.0
 
 [node name="Level_2" parent="." instance=ExtResource( 2 )]
+position = Vector2( 192, -96 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-position = Vector2( 24, 112 )
+position = Vector2( 160, 88 )
 
 [node name="MonsterSpawner" type="Node2D" parent="."]
 
 [node name="BloodWorm" parent="MonsterSpawner" instance=ExtResource( 3 )]
-position = Vector2( 568, 248 )
+position = Vector2( 960, 160 )
 
 [node name="BloodWorm2" parent="MonsterSpawner" instance=ExtResource( 3 )]
-position = Vector2( 360, 248 )
+position = Vector2( 552, 160 )
 
 [node name="BloodWorm3" parent="MonsterSpawner" instance=ExtResource( 3 )]
-position = Vector2( 744, 56 )
+position = Vector2( 928, -32 )
 
 [node name="EyeDude" parent="MonsterSpawner" instance=ExtResource( 4 )]
-position = Vector2( 128, 120 )
+position = Vector2( 616, -56 )
