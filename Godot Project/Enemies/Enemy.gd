@@ -41,7 +41,7 @@ enum {
 	ATTACK
 }
 
-onready var spawnedItem = preload("res://Items/SpawnedItem.tscn")
+var spawnedItem = preload("res://Items/SpawnedItem.tscn")
 
 onready var ray_cast = $RayCast2D
 onready var health_bar = $HealthBar

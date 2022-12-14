@@ -1,6 +1,7 @@
 extends GridContainer
 
 var inventory = preload("res://Inventory/Inventory.tres")
+var spawnedItem = preload("res://Items/SpawnedItem.tscn")
 
 func _ready():
 	inventory.connect("items_changed", self, "_on_items_changed")
@@ -40,7 +41,16 @@ func _on_item_picked_up(item_resource):
 		print("No inventory space")
 
 
+#handling the player putting items outside the inventory
 func _unhandled_input(event):
 	if event.is_action_released("ui_left_mouse"):
 		if inventory.drag_data is Dictionary:
-			inventory.set_item(inventory.drag_data.item_index, inventory.drag_data.item)
+			#drop item
+			print("item of type ", inventory.drag_data.item.name, " dropped at ", get_viewport().get_mouse_position())
+			var drop_instance = spawnedItem.instance()
+			drop_instance.item_resource = inventory.drag_data.item
+			print(drop_instance.item_resource)
+			drop_instance.position = get_global_mouse_position()
+			print(drop_instance.global_position)
+			get_node_or_null("/root/World/SpawnedItems").add_child(drop_instance)
+			#inventory.set_item(inventory.drag_data.item_index, inventory.drag_data.item)
