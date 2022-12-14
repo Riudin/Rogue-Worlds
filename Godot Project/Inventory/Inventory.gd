@@ -11,3 +11,10 @@ var slots: Array = []
 
 func _ready():
 	pass
+
+func add_item(item):
+	for s in slots:
+		if not s.item:
+			#add item to slot
+			s.set_item(item)
+			return
