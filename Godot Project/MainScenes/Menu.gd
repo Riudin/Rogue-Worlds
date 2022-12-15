@@ -7,7 +7,7 @@ func _on_PlayButton_pressed():
 
 
 func _on_SettingsButton_pressed():
-	pass # Replace with function body.
+	pass
 
 
 func _on_QuitButton_pressed():
