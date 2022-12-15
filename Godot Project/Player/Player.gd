@@ -24,8 +24,7 @@ onready var animation_tree = $AnimationTree
 onready var stun_timer = $StunTimer
 onready var weapon_pos = $Sprites/BackHand/WeaponPosition
 onready var screen_shaker = $Camera2D/ScreenShaker
-# weapon needs to link to an interchangable weapon in the future. for now it's set on default
-onready var weapon = weapon_pos.get_child(0)
+onready var weapon = weapon_pos.get_child(0)     # this works as long as there is only one weapon
 #export(PackedScene) onready var weapon
 
 var velocity = Vector2.ZERO
@@ -34,12 +33,16 @@ var stun = false
 var facing_right = true setget orient_sprites
 var FRICTION = 25
 
+var inventory_resource = load("res://Inventory/Inventory.gd")
+var inventory = inventory_resource.new()
+
 
 func _ready():
 	animation_tree.active = true
 
 
 func _physics_process(delta):
+	#print(get_tree().get_root().get_node("/root/World/Player"), "    ", self)
 	if not is_on_floor():
 		FRICTION = AIR_FRICTION
 	else:

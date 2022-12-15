@@ -1,6 +1,7 @@
 extends Resource
 class_name ItemResource
 
+# variables every item will have
 export var name : String
 export var stackable : bool = false
 export var max_stack_size : int = 1

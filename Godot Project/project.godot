@@ -10,11 +10,17 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Resource",
+"class": "Inventory",
+"language": "GDScript",
+"path": "res://Inventory/Inventory.gd"
+}, {
+"base": "Resource",
 "class": "ItemResource",
 "language": "GDScript",
 "path": "res://Items/Item.gd"
 } ]
 _global_script_class_icons={
+"Inventory": "",
 "ItemResource": ""
 }
 
@@ -26,8 +32,9 @@ config/icon="res://icon.png"
 
 [autoload]
 
-Transition="*res://Managers/transition.gd"
 ItemDatabase="*res://Managers/ItemDatabase.gd"
+Transition="*res://Managers/transition.gd"
+GameManager="*res://Managers/GameManager.gd"
 
 [display]
 

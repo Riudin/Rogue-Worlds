@@ -1,27 +1,58 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Levels/Level_2.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Enemies/BloodWorm.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Enemies/EyeDude.tscn" type="PackedScene" id=4]
+[ext_resource path="res://MainScenes/InventoryGrid.gd" type="Script" id=5]
+[ext_resource path="res://BloodItem.tscn" type="PackedScene" id=6]
 
 [node name="World" type="Node2D"]
 
 [node name="Level_2" parent="." instance=ExtResource( 2 )]
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-position = Vector2( 24, 112 )
+position = Vector2( 160, 88 )
 
 [node name="MonsterSpawner" type="Node2D" parent="."]
 
 [node name="BloodWorm" parent="MonsterSpawner" instance=ExtResource( 3 )]
-position = Vector2( 568, 248 )
+position = Vector2( 688, 248 )
 
 [node name="BloodWorm2" parent="MonsterSpawner" instance=ExtResource( 3 )]
-position = Vector2( 360, 248 )
+position = Vector2( 448, 248 )
 
 [node name="BloodWorm3" parent="MonsterSpawner" instance=ExtResource( 3 )]
 position = Vector2( 744, 56 )
 
 [node name="EyeDude" parent="MonsterSpawner" instance=ExtResource( 4 )]
-position = Vector2( 128, 120 )
+position = Vector2( 504, 48 )
+
+[node name="BloodItem" parent="." instance=ExtResource( 6 )]
+position = Vector2( 216, 176 )
+
+[node name="BloodItem2" parent="." instance=ExtResource( 6 )]
+position = Vector2( 96, 176 )
+
+[node name="BloodItem3" parent="." instance=ExtResource( 6 )]
+position = Vector2( 40, 176 )
+
+[node name="BloodItem4" parent="." instance=ExtResource( 6 )]
+position = Vector2( 32, 88 )
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Panel" type="Panel" parent="UI"]
+margin_left = 8.0
+margin_top = 88.0
+margin_right = 88.0
+margin_bottom = 168.0
+
+[node name="GridContainer" type="GridContainer" parent="UI/Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = 5.0
+margin_right = -5.0
+margin_bottom = -5.0
+script = ExtResource( 5 )
