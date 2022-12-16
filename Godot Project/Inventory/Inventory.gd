@@ -4,10 +4,11 @@ class_name Inventory
 signal inventory_changed
 
 export var _items = Array() setget set_items, get_items
+export var name : String
 
 # emit signal if you change _items
 func set_items(new_items):
-	_items= new_items
+	_items = new_items
 	emit_signal("inventory_changed", self)
 
 # getter for _items

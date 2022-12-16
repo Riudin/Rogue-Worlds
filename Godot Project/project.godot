@@ -18,10 +18,16 @@ _global_script_classes=[ {
 "class": "ItemResource",
 "language": "GDScript",
 "path": "res://Items/Item.gd"
+}, {
+"base": "TextureRect",
+"class": "SlotClass",
+"language": "GDScript",
+"path": "res://Inventory/InventorySlot.gd"
 } ]
 _global_script_class_icons={
 "Inventory": "",
-"ItemResource": ""
+"ItemResource": "",
+"SlotClass": ""
 }
 
 [application]

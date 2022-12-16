@@ -39,6 +39,7 @@ var inventory = inventory_resource.new()
 
 func _ready():
 	animation_tree.active = true
+	inventory.name = "Player Inventory"
 
 
 func _physics_process(delta):

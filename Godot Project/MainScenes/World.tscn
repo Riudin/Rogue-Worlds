@@ -5,7 +5,7 @@
 [ext_resource path="res://Enemies/BloodWorm.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Enemies/EyeDude.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Inventory/PlayerInventory.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Items/BloodItem.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Items/GroundItem.tscn" type="PackedScene" id=6]
 
 [node name="World" type="Node2D"]
 
@@ -28,17 +28,17 @@ position = Vector2( 744, 56 )
 [node name="EyeDude" parent="MonsterSpawner" instance=ExtResource( 4 )]
 position = Vector2( 504, 48 )
 
-[node name="BloodItem" parent="." instance=ExtResource( 6 )]
-position = Vector2( 216, 176 )
+[node name="GroundItem" parent="MonsterSpawner" instance=ExtResource( 6 )]
+position = Vector2( 224, 168 )
 
-[node name="BloodItem2" parent="." instance=ExtResource( 6 )]
-position = Vector2( 96, 176 )
+[node name="GroundItem2" parent="MonsterSpawner" instance=ExtResource( 6 )]
+position = Vector2( 120, 176 )
 
-[node name="BloodItem3" parent="." instance=ExtResource( 6 )]
-position = Vector2( 40, 176 )
+[node name="GroundItem3" parent="MonsterSpawner" instance=ExtResource( 6 )]
+position = Vector2( 72, 152 )
 
-[node name="BloodItem4" parent="." instance=ExtResource( 6 )]
-position = Vector2( 32, 88 )
+[node name="GroundItem4" parent="MonsterSpawner" instance=ExtResource( 6 )]
+position = Vector2( 32, 160 )
 
 [node name="UI" type="CanvasLayer" parent="."]
 
