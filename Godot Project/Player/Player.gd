@@ -33,10 +33,12 @@ var dashing = false
 var stun = false
 var facing_right = true setget orient_sprites
 var FRICTION = 25
+var inventory_open = false
 
 
 func _ready():
 	animation_tree.active = true
+	Events.connect("inventory_opened", self, "_on_inventory_opened")
 
 
 func _physics_process(delta):
@@ -74,7 +76,7 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("jump"):
 			jump()
 	
-	if Input.is_action_pressed("fire"):
+	if Input.is_action_pressed("fire") and not inventory_open:
 		weapon.start_fire_animation()
 		var weapon_recoil = weapon.get_recoil()
 		if facing_right and weapon.can_fire:
@@ -169,6 +171,9 @@ func orient_sprites(right_is_new):
 
 func get_class(): return "Player" # used for collision detection
 func is_class(name): return name == "Player" or .is_class(name)
+
+func _on_inventory_opened(inventory_state):
+	inventory_open = inventory_state
 
 
 func _on_StunTimer_timeout():

@@ -66,6 +66,7 @@ func remove_item(slot: SlotClass):
 		_:
 			equips.erase(slot.slot_index)
 
+
 func add_item_to_empty_slot(item: ItemClass, slot: SlotClass):
 	match slot.SlotType:
 		SlotClass.SlotType.HOTBAR:
@@ -81,6 +82,16 @@ func add_item_quantity(slot: SlotClass, quantity_to_add: int):
 			hotbar[slot.slot_index][1] += quantity_to_add
 		SlotClass.SlotType.INVENTORY:
 			inventory[slot.slot_index][1] += quantity_to_add
+#		_:
+#			equips[slot.slot_index][1] += quantity_to_add         #this didn't work but i have no idea why
+
+# same code with minus instead of plus for the sake of cleaner functions. just to avoid adding negative numbers
+func decrease_item_quantity(slot: SlotClass, quantity_to_add: int):
+	match slot.SlotType:
+		SlotClass.SlotType.HOTBAR:
+			hotbar[slot.slot_index][1] -= quantity_to_add
+		SlotClass.SlotType.INVENTORY:
+			inventory[slot.slot_index][1] -= quantity_to_add
 #		_:
 #			equips[slot.slot_index][1] += quantity_to_add         #this didn't work but i have no idea why
 

@@ -50,9 +50,29 @@ func slot_gui_input(event: InputEvent, slot: SlotClass):
 			elif slot.item:
 				left_click_not_holding(slot)
 		if event.button_index == BUTTON_RIGHT && event.pressed:
-			# TODO: code for splitting items
-			pass
+			# holding an item
+			if ui.holding_item != null:
+				# clicking empty slot
+				if !slot.item:
+					right_click_empty_slot(slot)
+				# clicking slot with item
+				else:
+					# item is different
+					if ui.holding_item.item_name != slot.item.item_name:
+						right_click_different_item(event, slot)
+					#item is the same
+					else:
+						right_click_same_item(slot)
+			# not holding an item but clicking on one
+			elif slot.item:
+				right_click_not_holding(slot)
 
+func _unhandled_input(event):
+	if event is InputEventMouseButton && event.pressed:
+		print("drop item")
+
+
+# warning-ignore:unused_argument
 func _input(event):
 	if ui.holding_item:
 		ui.holding_item.global_position = get_global_mouse_position() - Vector2(8, 8)
@@ -75,7 +95,11 @@ func able_to_put_into_slot(slot: SlotClass):
 	elif slot.slotType == SlotClass.SlotType.RING:
 		return holding_item_category == "Ring"
 	return true
-		
+
+###
+### Left click functions
+###
+
 func left_click_empty_slot(slot: SlotClass):
 	if able_to_put_into_slot(slot):
 		PlayerInventory.add_item_to_empty_slot(ui.holding_item, slot)
@@ -88,7 +112,7 @@ func left_click_different_item(event: InputEvent, slot: SlotClass):
 		PlayerInventory.add_item_to_empty_slot(ui.holding_item, slot)
 		var temp_item = slot.item
 		slot.pickFromSlot()
-		temp_item.global_position = event.global_position
+		temp_item.global_position = event.global_position - Vector2(8, 8)
 		slot.putIntoSlot(ui.holding_item)
 		ui.holding_item = temp_item
 
@@ -111,3 +135,50 @@ func left_click_not_holding(slot: SlotClass):
 	ui.holding_item = slot.item
 	slot.pickFromSlot()
 	ui.holding_item.global_position = get_global_mouse_position() - Vector2(8, 8)
+
+###
+### Right click functions
+###
+
+# put just 1 in slot
+func right_click_empty_slot(slot: SlotClass):
+	if able_to_put_into_slot(slot):
+		PlayerInventory.add_item_to_empty_slot(ui.holding_item, slot)
+		slot.initialize_item(ui.holding_item.item_name, 1)
+		ui.holding_item.decrease_item_quantity(1)
+		if ui.holding_item.item_quantity < 1:
+			ui.holding_item.queue_free()
+			ui.holding_item = null
+
+# swap items
+func right_click_different_item(event: InputEvent, slot: SlotClass):
+	left_click_different_item(event, slot)
+
+# put just 1 on stack
+func right_click_same_item(slot: SlotClass):
+	if able_to_put_into_slot(slot):
+		var stack_size = int(JsonData.item_data[slot.item.item_name]["StackSize"])
+		var able_to_add = stack_size - slot.item.item_quantity
+		if able_to_add >= ui.holding_item.item_quantity:
+			PlayerInventory.add_item_quantity(slot, 1)
+			slot.item.add_item_quantity(1)
+			ui.holding_item.decrease_item_quantity(1)
+			if ui.holding_item.item_quantity < 1:
+				ui.holding_item.queue_free()
+				ui.holding_item = null
+		else:
+			PlayerInventory.add_item_quantity(slot, 1)
+			slot.item.add_item_quantity(1)
+			ui.holding_item.decrease_item_quantity(1)
+
+# split stack in half
+func right_click_not_holding(slot: SlotClass):
+	var original_quantity = slot.item.item_quantity
+	slot.item.halve_item_quantity()
+	PlayerInventory.remove_item(slot)
+	ui.holding_item = slot.item
+	slot.pickFromSlot()
+	ui.holding_item.global_position = get_global_mouse_position() - Vector2(8, 8)
+	slot.initialize_item(ui.holding_item.item_name, ui.holding_item.item_quantity)
+	if original_quantity % 2 == 1:
+		ui.holding_item.add_item_quantity(1)

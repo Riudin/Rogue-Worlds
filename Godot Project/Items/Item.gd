@@ -38,3 +38,7 @@ func add_item_quantity(amount_to_add):
 func decrease_item_quantity(amount_to_remove):
 	item_quantity -= amount_to_remove
 	$Label.text = String(item_quantity)
+
+func halve_item_quantity():
+	item_quantity = item_quantity / 2
+	$Label.text = String(item_quantity)

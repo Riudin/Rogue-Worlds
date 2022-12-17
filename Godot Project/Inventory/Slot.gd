@@ -31,6 +31,14 @@ func putIntoSlot(new_item):
 	ui.remove_child(item)
 	add_child(item)
 
+func pickHalfFromSlot():
+#	item.item_quantity = item.item_quantity / 2
+	var temp_item = ItemClass.instance()
+	temp_item.item_name = item.item_name
+	temp_item.item_quantity = item.item_quantity
+	ui.add_child(temp_item)
+	ui.holding_item = temp_item
+
 func initialize_item(item_name, item_quantity):
 	if item == null:
 		item = ItemClass.instance()
