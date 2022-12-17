@@ -3,19 +3,7 @@ extends Node
 var item_data: Dictionary
 
 func _ready():
-	item_data = {
-  "BloodItemSmall": {
-	"ItemCategory": "Resource",
-	"StackSize": 99,
-	"Description": "A drop of Blood that can be used for crafting."
-  },
-  "EyeItemSmall": {
-	"ItemCategory": "Resource",
-	"StackSize": 99,
-	"Description": "A mysterious Eye that can be used for crafting."
-  }
-}
-	#item_data = LoadData("res://Data/ItemData.json")
+	item_data = LoadData("res://Data/ItemData.json")
 
 func LoadData(file_path):
 	var json_data

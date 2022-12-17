@@ -55,7 +55,7 @@ func slot_gui_input(event: InputEvent, slot: SlotClass):
 
 func _input(event):
 	if ui.holding_item:
-		ui.holding_item.global_position = get_global_mouse_position()
+		ui.holding_item.global_position = get_global_mouse_position() - Vector2(8, 8)
 		
 		
 func able_to_put_into_slot(slot: SlotClass):
@@ -64,12 +64,16 @@ func able_to_put_into_slot(slot: SlotClass):
 		return true
 	var holding_item_category = JsonData.item_data[holding_item.item_name]["ItemCategory"]
 	
-	if slot.slotType == SlotClass.SlotType.SHIRT:
-		return holding_item_category == "Shirt"
-	elif slot.slotType == SlotClass.SlotType.PANTS:
-		return holding_item_category == "Pants"
-	elif slot.slotType == SlotClass.SlotType.SHOES:
-		return holding_item_category == "Shoes"
+	if slot.slotType == SlotClass.SlotType.WEAPON:
+		return holding_item_category == "Weapon"
+	elif slot.slotType == SlotClass.SlotType.SHIELD:
+		return holding_item_category == "Shield"
+	elif slot.slotType == SlotClass.SlotType.HELMET:
+		return holding_item_category == "Helmet"
+	elif slot.slotType == SlotClass.SlotType.ARMOR:
+		return holding_item_category == "Armor"
+	elif slot.slotType == SlotClass.SlotType.RING:
+		return holding_item_category == "Ring"
 	return true
 		
 func left_click_empty_slot(slot: SlotClass):
@@ -106,4 +110,4 @@ func left_click_not_holding(slot: SlotClass):
 	PlayerInventory.remove_item(slot)
 	ui.holding_item = slot.item
 	slot.pickFromSlot()
-	ui.holding_item.global_position = get_global_mouse_position()
+	ui.holding_item.global_position = get_global_mouse_position() - Vector2(8, 8)

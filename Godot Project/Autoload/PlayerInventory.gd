@@ -12,8 +12,8 @@ var active_item_slot = 0
 var inventory = {
 	0: ["BloodItemSmall", 1],  #--> slot_index: [item_name, item_quantity]
 	1: ["BloodItemSmall", 1],  #--> slot_index: [item_name, item_quantity]
-	2: ["BloodItemSmall", 98],
-	3: ["BloodItemSmall", 45],
+	2: ["EyeItemSmall", 98],
+	29: ["BloodItemSmall", 45],
 }
 
 var hotbar = {
@@ -21,7 +21,9 @@ var hotbar = {
 	3: ["BloodItemSmall", 45],
 }
 
-var equips = {}
+var equips = {
+	
+}
 
 # TODO: First try to add to hotbar
 func add_item(item_name, item_quantity):
@@ -79,8 +81,8 @@ func add_item_quantity(slot: SlotClass, quantity_to_add: int):
 			hotbar[slot.slot_index][1] += quantity_to_add
 		SlotClass.SlotType.INVENTORY:
 			inventory[slot.slot_index][1] += quantity_to_add
-		_:
-			equips[slot.slot_index][1] += quantity_to_add
+#		_:
+#			equips[slot.slot_index][1] += quantity_to_add         #this didn't work but i have no idea why
 
 ###
 ### Hotbar Related Functions
