@@ -11,7 +11,7 @@ config_version=4
 [application]
 
 config/name="Rogue Worlds"
-run/main_scene="res://MainScenes/Menu.tscn"
+run/main_scene="res://MainScenes/World.tscn"
 config/icon="res://icon.png"
 
 [autoload]
