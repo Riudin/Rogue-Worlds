@@ -43,6 +43,9 @@ func _ready():
 
 
 func _physics_process(delta):
+	if Input.is_action_just_pressed("ui_up"):
+		print(PlayerInventory.inventory)
+	
 	if not is_on_floor():
 		FRICTION = AIR_FRICTION
 	else:

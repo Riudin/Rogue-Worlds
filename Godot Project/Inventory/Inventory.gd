@@ -85,8 +85,7 @@ func _unhandled_input(event):
 func _input(event):
 	if ui.holding_item:
 		ui.holding_item.global_position = get_global_mouse_position() - Vector2(8, 8)
-		
-		
+
 func able_to_put_into_slot(slot: SlotClass):
 	var holding_item = ui.holding_item
 	if holding_item == null:
