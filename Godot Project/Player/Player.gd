@@ -24,6 +24,7 @@ onready var animation_tree = $AnimationTree
 onready var stun_timer = $StunTimer
 onready var weapon_pos = $Sprites/BackHand/WeaponPosition
 onready var screen_shaker = $Camera2D/ScreenShaker
+onready var pickupZone = $PickupZone
 # weapon needs to link to an interchangable weapon in the future. for now it's set on default
 onready var weapon = weapon_pos.get_child(0)
 #export(PackedScene) onready var weapon
@@ -100,6 +101,11 @@ func _physics_process(delta):
 	
 	#if stun: velocity = Vector2.ZERO
 	#activate for stun
+	
+	if pickupZone.items_in_range.size() > 0:
+		var pickup_item = pickupZone.items_in_range.values()[0]
+		pickup_item.pick_up_item(self)
+		pickupZone.items_in_range.erase(pickup_item)
 	
 	velocity = move_and_slide(velocity, Vector2.UP)
 

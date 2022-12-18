@@ -1,6 +1,7 @@
 extends Node2D
 
 const SlotClass = preload("res://Inventory/Slot.gd")
+const ItemDrop = preload("res://Items/ItemDrop.tscn")
 onready var inventory_slots = $InventorySlots
 onready var equip_slots = $EquipmentSlots.get_children()
 onready var ui = find_parent("UI")
@@ -69,8 +70,16 @@ func slot_gui_input(event: InputEvent, slot: SlotClass):
 
 func _unhandled_input(event):
 	if event is InputEventMouseButton && event.pressed:
-		print("drop item")
-
+		if ui.holding_item != null:
+			var new_item_drop = ItemDrop.instance()
+			new_item_drop.item_name = ui.holding_item.item_name
+			#new_item_drop.itemTexture.texture = ui.holding_item.itemTexture.texture
+			new_item_drop.item_quantity = ui.holding_item.item_quantity
+			new_item_drop.position = get_tree().get_root().get_node("Main").get_local_mouse_position() -Vector2(8, 8)
+			get_tree().get_root().get_node("Main").add_child(new_item_drop)
+#			PlayerInventory.remove_item(slot)
+			ui.holding_item.queue_free()
+			ui.holding_item = null
 
 # warning-ignore:unused_argument
 func _input(event):

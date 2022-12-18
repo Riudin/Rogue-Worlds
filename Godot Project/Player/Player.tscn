@@ -1,8 +1,9 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://Resources/default-character.png" type="Texture" id=1]
 [ext_resource path="res://Items/Weapons/BoneBow.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Player/ScreenShaker.gd" type="Script" id=3]
+[ext_resource path="res://Player/PickupZone.gd" type="Script" id=4]
 [ext_resource path="res://Player/Player.gd" type="Script" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -1187,7 +1188,10 @@ nodes/in_air_state/position = Vector2( 320, 320 )
 nodes/movement/node = SubResource( 32 )
 nodes/movement/position = Vector2( 100, 180 )
 nodes/output/position = Vector2( 540, 320 )
-node_connections = [ "in_air", 0, "Animation 3", "in_air", 1, "dash_direction", "movement", 0, "Animation", "movement", 1, "Animation 2", "in_air_state", 0, "movement", "in_air_state", 1, "in_air", "dash_direction", 0, "Animation 4", "dash_direction", 1, "Animation 5", "output", 0, "in_air_state" ]
+node_connections = [ "output", 0, "in_air_state", "dash_direction", 0, "Animation 4", "dash_direction", 1, "Animation 5", "in_air", 0, "Animation 3", "in_air", 1, "dash_direction", "movement", 0, "Animation", "movement", 1, "Animation 2", "in_air_state", 0, "movement", "in_air_state", 1, "in_air" ]
+
+[sub_resource type="CircleShape2D" id=34]
+radius = 64.0
 
 [node name="Player" type="KinematicBody2D" groups=["Player"]]
 collision_mask = 7
@@ -1281,4 +1285,15 @@ script = ExtResource( 3 )
 
 [node name="StunTimer" type="Timer" parent="."]
 
+[node name="PickupZone" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+script = ExtResource( 4 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickupZone"]
+position = Vector2( 0, -8 )
+shape = SubResource( 34 )
+
 [connection signal="timeout" from="StunTimer" to="." method="_on_StunTimer_timeout"]
+[connection signal="body_entered" from="PickupZone" to="PickupZone" method="_on_PickupZone_body_entered"]
+[connection signal="body_exited" from="PickupZone" to="PickupZone" method="_on_PickupZone_body_exited"]
