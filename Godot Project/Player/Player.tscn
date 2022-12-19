@@ -1463,7 +1463,7 @@ vframes = 2
 frame = 5
 
 [node name="BackHand" type="Sprite" parent="Sprites"]
-position = Vector2( 8, 8.34355 )
+position = Vector2( 8, 8.12796 )
 texture = ExtResource( 1 )
 hframes = 7
 vframes = 2
@@ -1475,21 +1475,21 @@ position = Vector2( 4, 4 )
 [node name="BoneBow" parent="Sprites/BackHand/WeaponPosition" instance=ExtResource( 2 )]
 
 [node name="Body" type="Sprite" parent="Sprites"]
-position = Vector2( 8, 8.27387 )
+position = Vector2( 8, 8.07678 )
 texture = ExtResource( 1 )
 hframes = 7
 vframes = 2
 frame = 1
 
 [node name="FrontHand" type="Sprite" parent="Sprites"]
-position = Vector2( 8, 8.60122 )
+position = Vector2( 8, 8.22393 )
 texture = ExtResource( 1 )
 hframes = 7
 vframes = 2
 frame = 2
 
 [node name="Head" type="Sprite" parent="Sprites"]
-position = Vector2( 8, 8.28543 )
+position = Vector2( 8, 8.49657 )
 texture = ExtResource( 1 )
 hframes = 7
 vframes = 2

@@ -83,6 +83,7 @@ func _ready():
 	if enemy_type == "normal": boss_name = null
 	if can_pass_walls:
 		self.set_collision_mask(1)
+	hitbox.damage = damage
 
 
 func _process(_delta):

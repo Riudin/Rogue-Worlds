@@ -7,7 +7,7 @@ onready var groundSpawn1 = $Groundspawners/GroundSpawn1
 onready var groundSpawn2 = $Groundspawners/GroundSpawn2
 onready var groundSpawn3 = $Groundspawners/GroundSpawn3
 
-var enemies = [["BloodWorm", 10], ["EyeDude", 10]]
+var enemies = [["BloodWorm", 5], ["EyeDude", 2]]
 
 var ground_spawn = []
 var air_spawn = []
