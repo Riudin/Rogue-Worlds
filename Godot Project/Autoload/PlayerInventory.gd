@@ -10,17 +10,13 @@ const NUM_HOTBAR_SLOTS = 6
 var active_item_slot = 0
 
 var inventory = {
-	0: ["BloodItemSmall", 20],  #--> slot_index: [item_name, item_quantity]
+	#0: ["BloodItemSmall", 20],  
+	#--> slot_index: [item_name, item_quantity]
 }
 
-var hotbar = {
-	0: ["BloodItemSmall", 1],  #--> slot_index: [item_name, item_quantity]
-	3: ["BloodItemSmall", 45],
-}
+var hotbar = {}
 
-var equips = {
-	
-}
+var equips = {}
 
 # TODO: First try to add to hotbar
 func add_item(item_name, item_quantity):

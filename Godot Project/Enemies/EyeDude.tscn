@@ -74,6 +74,7 @@ projectile_range = 35
 projectile_speed = 0
 projectile_piercing = true
 projectile_stationary = true
+cooldown = 3.0
 can_fly = true
 can_pass_walls = true
 enemy_name = "EyeDude"
@@ -105,8 +106,6 @@ nine_patch_stretch = true
 [node name="StunTimer" type="Timer" parent="."]
 
 [node name="ShootTimer" type="Timer" parent="."]
-
-[node name="ShootDelayTimer" type="Timer" parent="."]
 
 [node name="AttackTimer" type="Timer" parent="."]
 
@@ -150,7 +149,6 @@ position = Vector2( 0, -16 )
 
 [connection signal="timeout" from="StunTimer" to="." method="_on_StunTimer_timeout"]
 [connection signal="timeout" from="ShootTimer" to="." method="_on_ShootTimer_timeout"]
-[connection signal="timeout" from="ShootDelayTimer" to="." method="_on_ShootDelayTimer_timeout"]
 [connection signal="timeout" from="AttackTimer" to="." method="_on_AttackTimer_timeout"]
 
 [editable path="SoftCollision"]

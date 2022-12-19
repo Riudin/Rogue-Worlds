@@ -156,19 +156,10 @@ func _physics_process(delta):
 		SHOOT:
 			self.player = player_detection_zone.player
 			shoot_origin.look_at(player.global_position)
-#			if facing_right:
-#				animation_player.play("AttackRight")
-#			else:
-#				animation_player.play("AttackLeft")	
-			velocity = Vector2.ZERO
-			animation_player.play("Shoot")
-#			shoot_delay_timer.start(0.5)
-#			yield(shoot_delay_timer, "timeout")
-			yield(get_tree().create_timer(0.5), "timeout")
+			if animation_player.current_animation == "Shoot":
+				yield(animation_player, "animation_finished")
 			fire()
-#			shoot_delay_timer.start(0.5)
-#			yield(shoot_delay_timer, "timeout")
-			yield(get_tree().create_timer(0.5), "timeout")
+			yield(animation_player, "animation_finished")
 			seek_player()
 		
 		ATTACK:
@@ -190,6 +181,9 @@ func attack():
 
 func fire():
 	if can_shoot:
+		can_shoot = false
+		velocity = Vector2.ZERO
+		animation_player.play("Shoot")
 		var new_p = projectile.instance()
 		var projectile_direction = shoot_origin.global_position.direction_to(player.global_position)
 		get_node("/root").add_child(new_p)
@@ -206,7 +200,7 @@ func fire():
 		new_p.piercing = projectile_piercing
 		
 		shoot_timer.start(cooldown)
-		can_shoot = false
+#		can_shoot = true
 
 
 func accelerate_to_point(point, delta):
@@ -271,7 +265,7 @@ func drop_loot():
 		if rng <= drop_chance:
 			var new_item_drop = ItemDrop.instance()
 			new_item_drop.item_name = loot_table[item][0]
-			new_item_drop.item_quantity = randi() % loot_table[item][2] + 1
+			new_item_drop.item_quantity = randi() % int(loot_table[item][2]) + 1
 			new_item_drop.position = self.global_position + Vector2(int(rand_range(-8, 8)), int(rand_range(-8, 8)))
 			get_tree().get_root().get_node("Main").call_deferred("add_child", new_item_drop)
 			print("loot: ", new_item_drop.item_quantity, " x ", new_item_drop.item_name)

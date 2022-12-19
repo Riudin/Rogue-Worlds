@@ -1188,7 +1188,7 @@ nodes/in_air_state/position = Vector2( 320, 320 )
 nodes/movement/node = SubResource( 32 )
 nodes/movement/position = Vector2( 100, 180 )
 nodes/output/position = Vector2( 540, 320 )
-node_connections = [ "output", 0, "in_air_state", "dash_direction", 0, "Animation 4", "dash_direction", 1, "Animation 5", "in_air", 0, "Animation 3", "in_air", 1, "dash_direction", "movement", 0, "Animation", "movement", 1, "Animation 2", "in_air_state", 0, "movement", "in_air_state", 1, "in_air" ]
+node_connections = [ "output", 0, "in_air_state", "movement", 0, "Animation", "movement", 1, "Animation 2", "in_air_state", 0, "movement", "in_air_state", 1, "in_air", "in_air", 0, "Animation 3", "in_air", 1, "dash_direction", "dash_direction", 0, "Animation 4", "dash_direction", 1, "Animation 5" ]
 
 [sub_resource type="CircleShape2D" id=34]
 radius = 64.0

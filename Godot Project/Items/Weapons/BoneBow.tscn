@@ -52,6 +52,7 @@ tracks/1/keys = {
 [node name="BoneBow" type="Node2D"]
 position = Vector2( -1, 0 )
 script = ExtResource( 2 )
+p_range = 50
 speed = 200
 damage = 3
 bullet = ExtResource( 3 )
