@@ -10,10 +10,7 @@ const NUM_HOTBAR_SLOTS = 6
 var active_item_slot = 0
 
 var inventory = {
-	0: ["BloodItemSmall", 1],  #--> slot_index: [item_name, item_quantity]
-	1: ["BloodItemSmall", 1],  #--> slot_index: [item_name, item_quantity]
-	2: ["EyeItemSmall", 98],
-	29: ["BloodItemSmall", 45],
+	0: ["BloodItemSmall", 20],  #--> slot_index: [item_name, item_quantity]
 }
 
 var hotbar = {

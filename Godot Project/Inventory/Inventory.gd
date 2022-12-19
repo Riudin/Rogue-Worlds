@@ -188,5 +188,6 @@ func right_click_not_holding(slot: SlotClass):
 	slot.pickFromSlot()
 	ui.holding_item.global_position = get_global_mouse_position() - Vector2(8, 8)
 	slot.initialize_item(ui.holding_item.item_name, ui.holding_item.item_quantity)
+	PlayerInventory.add_item_to_empty_slot(ui.holding_item ,slot)
 	if original_quantity % 2 == 1:
 		ui.holding_item.add_item_quantity(1)

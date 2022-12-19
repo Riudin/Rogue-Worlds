@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+const ItemDrop = preload("res://Items/ItemDrop.tscn")
+
 export(int) var RUN_SPEED = 100
 export(int) var ACCELERATION = 1200
 export(int) var FRICTION = 25*60
@@ -29,6 +31,7 @@ export(int) var detection_radius = 1
 export(float) var cooldown = 4.0
 export(bool) var can_fly = false
 export(bool) var can_pass_walls = false
+export(String) var enemy_name
 export(String, "normal", "boss") var enemy_type = "normal"
 export(String) var boss_name = null
 export(PackedScene) onready var projectile
@@ -63,6 +66,7 @@ var state = IDLE
 var can_shoot = true
 var can_attack = true
 var player = null setget new_player
+var drop = false
 
 func new_player(new_player):
 	if new_player != null:
@@ -215,38 +219,6 @@ func accelerate_to_point(point, delta):
 	animation_player.play("Move")
 
 
-#########################################################
-#func move():
-##	if stun == false:
-##		velocity = velocity.normalized() * speed
-###		if soft_collision.is_colliding():
-###			velocity += soft_collision.get_push_vector() * 25
-#	velocity.x += RUN_SPEED * direction
-#	if is_on_wall():
-#		direction = direction * -1
-#
-#
-#	velocity = move_and_slide(velocity)
-#	elif stun:
-#		velocity = lerp(velocity, Vector2.ZERO, 0.6)
-#########################################################
-
-#func apply_friction():
-#	velocity.x = move_toward(velocity.x, 0, FRICTION)
-#
-#
-#func apply_acceleration(amount):
-#	velocity.x = move_toward(velocity.x, RUN_SPEED * amount, ACCELERATION)
-
-
-#func get_gravity() -> float:
-#	return jump_gravity if velocity.y < 0.0 else fall_gravity
-#
-#
-#func jump():
-#	velocity.y = jump_velocity
-
-
 func seek_player():
 	if player_detection_zone.can_see_player():
 		if can_shoot:
@@ -286,7 +258,23 @@ func _on_StunTimer_timeout():
 
 
 func on_destroy():
+	drop_loot()
 	queue_free()
+
+
+func drop_loot():
+	var loot_table = JsonData.drop_data[enemy_name]
+	randomize()
+	for item in loot_table:
+		var drop_chance = loot_table[item][1]
+		var rng = randi() % 100 + 1
+		if rng <= drop_chance:
+			var new_item_drop = ItemDrop.instance()
+			new_item_drop.item_name = loot_table[item][0]
+			new_item_drop.item_quantity = randi() % loot_table[item][2] + 1
+			new_item_drop.position = self.global_position + Vector2(int(rand_range(-8, 8)), int(rand_range(-8, 8)))
+			get_tree().get_root().get_node("Main").call_deferred("add_child", new_item_drop)
+			print("loot: ", new_item_drop.item_quantity, " x ", new_item_drop.item_name)
 
 
 func _on_ShootTimer_timeout():
