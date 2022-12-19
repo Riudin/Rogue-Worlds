@@ -31,14 +31,14 @@ func _process(delta):
 		inventory_open = !inventory_open
 
 func _on_chest_opened():
-		chestInventory.visible = true
-		chestInventory.initialize_inventory()
-		Events.emit_signal("inventory_opened", false)
-		inventory_open = true
+	chestInventory.visible = true
+	chestInventory.initialize_inventory()
+	Events.emit_signal("inventory_opened", true)
+	inventory_open = true
 
 func _on_chest_closed():
 	chestInventory.visible = false
-	Events.emit_signal("inventory_opened", true)
+	Events.emit_signal("inventory_opened", false)
 	inventory_open = false
 
 func _on_player_death():

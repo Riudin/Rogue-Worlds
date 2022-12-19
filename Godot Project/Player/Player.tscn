@@ -1433,7 +1433,7 @@ nodes/in_air_state/position = Vector2( 300, 320 )
 nodes/movement/node = SubResource( 32 )
 nodes/movement/position = Vector2( 100, 180 )
 nodes/output/position = Vector2( 760, 320 )
-node_connections = [ "output", 0, "alive_state", "alive_state", 0, "in_air_state", "alive_state", 1, "Animation 6", "dash_direction", 0, "Animation 4", "dash_direction", 1, "Animation 5", "in_air", 0, "Animation 3", "in_air", 1, "dash_direction", "in_air_state", 0, "movement", "in_air_state", 1, "in_air", "movement", 0, "Animation", "movement", 1, "Animation 2" ]
+node_connections = [ "output", 0, "alive_state", "in_air", 0, "Animation 3", "in_air", 1, "dash_direction", "dash_direction", 0, "Animation 4", "dash_direction", 1, "Animation 5", "alive_state", 0, "in_air_state", "alive_state", 1, "Animation 6", "movement", 0, "Animation", "movement", 1, "Animation 2", "in_air_state", 0, "movement", "in_air_state", 1, "in_air" ]
 
 [sub_resource type="CircleShape2D" id=34]
 radius = 64.0
@@ -1463,7 +1463,7 @@ vframes = 2
 frame = 5
 
 [node name="BackHand" type="Sprite" parent="Sprites"]
-position = Vector2( 8, 8.12796 )
+position = Vector2( 8, 8 )
 texture = ExtResource( 1 )
 hframes = 7
 vframes = 2
@@ -1475,21 +1475,21 @@ position = Vector2( 4, 4 )
 [node name="BoneBow" parent="Sprites/BackHand/WeaponPosition" instance=ExtResource( 2 )]
 
 [node name="Body" type="Sprite" parent="Sprites"]
-position = Vector2( 8, 8.07678 )
+position = Vector2( 8, 8 )
 texture = ExtResource( 1 )
 hframes = 7
 vframes = 2
 frame = 1
 
 [node name="FrontHand" type="Sprite" parent="Sprites"]
-position = Vector2( 8, 8.22393 )
+position = Vector2( 8, 8 )
 texture = ExtResource( 1 )
 hframes = 7
 vframes = 2
 frame = 2
 
 [node name="Head" type="Sprite" parent="Sprites"]
-position = Vector2( 8, 8.49657 )
+position = Vector2( 8, 8 )
 texture = ExtResource( 1 )
 hframes = 7
 vframes = 2

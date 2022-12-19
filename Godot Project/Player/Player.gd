@@ -85,13 +85,14 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("jump") and alive:
 			jump()
 	
-	if Input.is_action_pressed("fire") and not inventory_open and alive:
-		weapon.start_fire_animation()
-		var weapon_recoil = weapon.get_recoil()
-		if facing_right and weapon.can_fire:
-			velocity.x -= weapon_recoil
-		elif not facing_right and weapon.can_fire:
-			velocity.x += weapon_recoil
+	if Input.is_action_pressed("fire") and not inventory_open:
+		if alive:
+			weapon.start_fire_animation()
+			var weapon_recoil = weapon.get_recoil()
+			if facing_right and weapon.can_fire:
+				velocity.x -= weapon_recoil
+			elif not facing_right and weapon.can_fire:
+				velocity.x += weapon_recoil
 	
 	if is_on_floor():
 		animation_tree.set("parameters/in_air_state/current", 0)

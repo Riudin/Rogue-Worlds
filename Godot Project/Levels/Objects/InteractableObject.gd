@@ -23,3 +23,4 @@ func _on_PlayerChest_body_entered(body):
 func _on_PlayerChest_body_exited(body):
 	if body.is_in_group("Player"):
 		interactable = false
+		Events.emit_signal("chest_closed")

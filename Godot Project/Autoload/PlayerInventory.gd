@@ -6,7 +6,7 @@ const SlotClass = preload("res://UI/Inventory/Slot.gd")
 const ItemClass = preload("res://Items/Item.gd")
 const NUM_INVENTORY_SLOTS = 30
 const NUM_HOTBAR_SLOTS = 6
-var inventoryResource : Resource = load("res://UI/Inventory/PlayerInventory.tres")
+var inventoryResource : Resource
 
 var active_item_slot = 0
 
@@ -18,6 +18,12 @@ var inventory = {
 var hotbar = {}
 
 var equips = {}
+
+func _ready():
+	inventoryResource = ResourceLoader.load("res://UI/Inventory/PlayerInventory.tres")
+	inventory = inventoryResource.inventory
+	hotbar = inventoryResource.hotbar
+	equips = inventoryResource.equips
 
 # TODO: First try to add to hotbar
 func add_item(item_name, item_quantity):
@@ -102,7 +108,8 @@ func active_item_scroll_down() -> void:
 		active_item_slot -= 1
 	emit_signal("active_item_updated")
 
-
+func _exit_tree():
+	ResourceSaver.save("res://UI/Inventory/PlayerInventory.tres", inventoryResource)
 
 
 
