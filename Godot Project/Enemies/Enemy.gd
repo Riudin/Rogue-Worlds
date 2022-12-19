@@ -86,7 +86,7 @@ func _ready():
 
 
 func _process(_delta):
-	health_bar.set_position(position - Vector2(6, 35))
+	health_bar.set_position(global_position - Vector2(6, 35))
 
 
 func _physics_process(delta):

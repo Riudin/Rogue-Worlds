@@ -1,0 +1,52 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Utility/MonsterSpawner.gd" type="Script" id=1]
+[ext_resource path="res://Utility/SpawnPosition.gd" type="Script" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 368, 4 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 96, 4 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 96, 4 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 368, 116 )
+
+[node name="MonsterSpawner" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="Groundspawners" type="Node2D" parent="."]
+
+[node name="GroundSpawn1" type="Area2D" parent="Groundspawners"]
+script = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Groundspawners/GroundSpawn1"]
+position = Vector2( 368, 252 )
+shape = SubResource( 1 )
+
+[node name="GroundSpawn2" type="Area2D" parent="Groundspawners"]
+position = Vector2( -56, -128 )
+script = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Groundspawners/GroundSpawn2"]
+position = Vector2( 280, 188 )
+shape = SubResource( 2 )
+
+[node name="GroundSpawn3" type="Area2D" parent="Groundspawners"]
+script = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Groundspawners/GroundSpawn3"]
+position = Vector2( 512, 60 )
+shape = SubResource( 3 )
+
+[node name="AirSpawners" type="Node2D" parent="."]
+
+[node name="AirSpawn" type="Area2D" parent="AirSpawners"]
+script = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AirSpawners/AirSpawn"]
+position = Vector2( 368, 116 )
+shape = SubResource( 4 )

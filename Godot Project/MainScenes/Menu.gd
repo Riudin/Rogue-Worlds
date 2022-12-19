@@ -3,7 +3,7 @@ extends Control
 
 
 func _on_PlayButton_pressed():
-	Transition.transition("res://MainScenes/World.tscn")
+	Transition.transition("res://MainScenes/Main.tscn")
 
 
 func _on_SettingsButton_pressed():
