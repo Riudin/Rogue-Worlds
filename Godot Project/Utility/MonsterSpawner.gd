@@ -9,8 +9,8 @@ onready var groundSpawn3 = $Groundspawners/GroundSpawn3
 
 var enemies = [["BloodWorm", 5], ["EyeDude", 2]]
 
-var ground_spawn = []
-var air_spawn = []
+#var ground_spawn = []
+#var air_spawn = []
 
 func _ready():
 	#get_spawn_areas()
@@ -28,10 +28,10 @@ func spawn_enemies():
 			new_enemy.position = new_enemy_position
 			add_child(new_enemy)
 
-func get_spawn_areas():
-	for c in groundSpawners.get_child_count():
-		ground_spawn.append()
-		
+#func get_spawn_areas():
+#	for c in groundSpawners.get_child_count():
+#		ground_spawn.append()
+#
 
 func generate_enemy_position(can_fly):
 	var enemy_position

@@ -8,10 +8,20 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Resource",
+"class": "InventoryResource",
+"language": "GDScript",
+"path": "res://UI/Inventory/InventoryResource.gd"
+} ]
+_global_script_class_icons={
+"InventoryResource": ""
+}
+
 [application]
 
 config/name="Rogue Worlds"
-run/main_scene="res://MainScenes/Main.tscn"
+run/main_scene="res://Main.tscn"
 config/icon="res://icon.png"
 
 [autoload]

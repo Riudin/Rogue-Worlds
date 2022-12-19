@@ -2,6 +2,8 @@ extends Node
 
 ### UI Signals
 signal inventory_opened
+signal chest_opened
+signal chest_closed
 
 
 ### Player Signals

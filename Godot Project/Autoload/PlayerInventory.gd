@@ -2,10 +2,11 @@ extends Node
 
 signal active_item_updated
 
-const SlotClass = preload("res://Inventory/Slot.gd")
+const SlotClass = preload("res://UI/Inventory/Slot.gd")
 const ItemClass = preload("res://Items/Item.gd")
 const NUM_INVENTORY_SLOTS = 30
 const NUM_HOTBAR_SLOTS = 6
+var inventoryResource : Resource = load("res://UI/Inventory/PlayerInventory.tres")
 
 var active_item_slot = 0
 

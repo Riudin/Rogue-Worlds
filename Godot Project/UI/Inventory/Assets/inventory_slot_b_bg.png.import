@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/armor_preview.png-ba513a0be9f017f878eba29b9f9d93db.stex"
+path="res://.import/inventory_slot_b_bg.png-fbfb200ae146d711e9adc87cd4109825.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Inventory/Assets/armor_preview.png"
-dest_files=[ "res://.import/armor_preview.png-ba513a0be9f017f878eba29b9f9d93db.stex" ]
+source_file="res://UI/Inventory/Assets/inventory_slot_b_bg.png"
+dest_files=[ "res://.import/inventory_slot_b_bg.png-fbfb200ae146d711e9adc87cd4109825.stex" ]
 
 [params]
 

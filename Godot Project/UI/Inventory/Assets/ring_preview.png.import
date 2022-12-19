@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/ring_preview.png-28ff01b8e55f57bc2c8e3a11aaca9c91.stex"
+path="res://.import/ring_preview.png-53a4dbe2245e23712c0a7f748caf764a.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Inventory/Assets/ring_preview.png"
-dest_files=[ "res://.import/ring_preview.png-28ff01b8e55f57bc2c8e3a11aaca9c91.stex" ]
+source_file="res://UI/Inventory/Assets/ring_preview.png"
+dest_files=[ "res://.import/ring_preview.png-53a4dbe2245e23712c0a7f748caf764a.stex" ]
 
 [params]
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/equipment_preview.png-ba615fdb33f0246952706c748be55a8c.stex"
+path="res://.import/shield_preview.png-38ca0d09136fc85f2917654f6297e15a.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Inventory/Assets/equipment_preview.png"
-dest_files=[ "res://.import/equipment_preview.png-ba615fdb33f0246952706c748be55a8c.stex" ]
+source_file="res://UI/Inventory/Assets/shield_preview.png"
+dest_files=[ "res://.import/shield_preview.png-38ca0d09136fc85f2917654f6297e15a.stex" ]
 
 [params]
 

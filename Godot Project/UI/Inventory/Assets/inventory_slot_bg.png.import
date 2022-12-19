@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/helmet_preview.png-b2783ba5b551d773971649b2e8a31164.stex"
+path="res://.import/inventory_slot_bg.png-b0fd5961d31a13a6e72493af170dec66.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Inventory/Assets/helmet_preview.png"
-dest_files=[ "res://.import/helmet_preview.png-b2783ba5b551d773971649b2e8a31164.stex" ]
+source_file="res://UI/Inventory/Assets/inventory_slot_bg.png"
+dest_files=[ "res://.import/inventory_slot_bg.png-b0fd5961d31a13a6e72493af170dec66.stex" ]
 
 [params]
 

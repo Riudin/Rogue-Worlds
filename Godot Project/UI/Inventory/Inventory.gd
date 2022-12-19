@@ -1,6 +1,6 @@
 extends Node2D
 
-const SlotClass = preload("res://Inventory/Slot.gd")
+const SlotClass = preload("res://UI/Inventory/Slot.gd")
 const ItemDrop = preload("res://Items/ItemDrop.tscn")
 onready var inventory_slots = $InventorySlots
 onready var equip_slots = $EquipmentSlots.get_children()
