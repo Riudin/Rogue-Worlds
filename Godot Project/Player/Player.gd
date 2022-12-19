@@ -9,6 +9,7 @@ export(int) var MAX_FALL_SPEED = 350
 export(int) var DASH_SPEED = 400
 export(int) var DASH_UPWARDS_MOTION = 20
 export(int) var KNOCKBACK = 5
+export(int) var MAX_HEALTH = 5
 export(int) var HEALTH = 5
 
 export(float) var JUMP_HEIGHT = 10.0
@@ -35,11 +36,18 @@ var stun = false
 var facing_right = true setget orient_sprites
 var FRICTION = 25
 var inventory_open = false
+var alive = true
 
 
 func _ready():
 	animation_tree.active = true
 	Events.connect("inventory_opened", self, "_on_inventory_opened")
+	set_health_ui()
+
+
+func set_health_ui():
+	Events.emit_signal("player_max_health_changed", MAX_HEALTH)
+	Events.emit_signal("player_health_changed", HEALTH)
 
 
 func _physics_process(delta):
@@ -52,9 +60,9 @@ func _physics_process(delta):
 	var input = Vector2.ZERO
 	input.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
 	
-	if Input.is_action_just_pressed("dash_right"):
+	if Input.is_action_just_pressed("dash_right") and alive:
 		dash(1)
-	elif Input.is_action_just_pressed("dash_left"):
+	elif Input.is_action_just_pressed("dash_left") and alive:
 		dash(-1)
 	
 	if input.x == 0:
@@ -62,7 +70,7 @@ func _physics_process(delta):
 		if is_on_floor():
 			animation_tree.set("parameters/movement/current", 0)
 			
-	else:
+	elif alive:
 		apply_acceleration(input.x)
 		if is_on_floor():
 			animation_tree.set("parameters/movement/current", 1)
@@ -74,10 +82,10 @@ func _physics_process(delta):
 			if velocity.x > 0:
 				velocity.x *= 0
 	
-	if Input.is_action_just_pressed("jump"):
+	if Input.is_action_just_pressed("jump") and alive:
 			jump()
 	
-	if Input.is_action_pressed("fire") and not inventory_open:
+	if Input.is_action_pressed("fire") and not inventory_open and alive:
 		weapon.start_fire_animation()
 		var weapon_recoil = weapon.get_recoil()
 		if facing_right and weapon.can_fire:
@@ -106,6 +114,7 @@ func _physics_process(delta):
 		var pickup_item = pickupZone.items_in_range.values()[0]
 		pickup_item.pick_up_item(self)
 		pickupZone.items_in_range.erase(pickup_item)
+	
 	
 	velocity = move_and_slide(velocity, Vector2.UP)
 
@@ -142,13 +151,14 @@ func dash(dir):
 
 
 func apply_damage(dmg):
-	HEALTH -= dmg
-	print("took ",dmg," damage")
+	if alive: 
+		HEALTH -= dmg
 	if stun == false:
 		apply_stun(0.3)
-	if HEALTH <= 0:
+	if HEALTH <= 0 and alive:
+		HEALTH = 0
 		on_death()
-		print("dead")
+	Events.emit_signal("player_health_changed", HEALTH)
 
 
 func apply_stun(time):
@@ -162,10 +172,18 @@ func apply_stun(time):
 
 
 func on_death():
-	pass
+	animation_tree.set("parameters/alive_state/current", 1)
+	alive = false
+	Events.emit_signal("player_died")
+#	yield(get_tree().create_timer(3), "timeout")
+#	Transition.transition("res://MainScenes/Main.tscn")
 
 
 func orient_sprites(right_is_new):
+	if not alive:
+		facing_right = true
+		return
+	
 	if facing_right != right_is_new && right_is_new:
 		facing_right = right_is_new
 		animation_player.play("FlipRight")

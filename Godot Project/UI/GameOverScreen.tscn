@@ -1,0 +1,58 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Resources/Fonts/8.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Resources/Fonts/MILLENNIA.TTF" type="DynamicFontData" id=2]
+[ext_resource path="res://UI/GameOverScreen.gd" type="Script" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+size = 20
+font_data = ExtResource( 2 )
+
+[node name="GameOverScreen" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 3 )
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="ColorRect" type="ColorRect" parent="CenterContainer"]
+margin_left = 165.0
+margin_top = 85.0
+margin_right = 315.0
+margin_bottom = 185.0
+rect_min_size = Vector2( 150, 100 )
+size_flags_horizontal = 5
+size_flags_vertical = 5
+color = Color( 0.101961, 0.101961, 0.101961, 0.894118 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/ColorRect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Control" type="Control" parent="CenterContainer/ColorRect/VBoxContainer"]
+margin_right = 150.0
+margin_bottom = 10.0
+rect_min_size = Vector2( 0, 10 )
+
+[node name="Label" type="Label" parent="CenterContainer/ColorRect/VBoxContainer"]
+margin_top = 14.0
+margin_right = 150.0
+margin_bottom = 34.0
+custom_fonts/font = SubResource( 1 )
+text = "GAME OVER!"
+align = 1
+valign = 1
+
+[node name="Button" type="Button" parent="CenterContainer/ColorRect/VBoxContainer"]
+margin_left = 38.0
+margin_top = 61.0
+margin_right = 112.0
+margin_bottom = 76.0
+size_flags_horizontal = 4
+size_flags_vertical = 6
+custom_fonts/font = ExtResource( 1 )
+text = "Quit to Main Menu"
+
+[connection signal="pressed" from="CenterContainer/ColorRect/VBoxContainer/Button" to="." method="_on_Button_pressed"]

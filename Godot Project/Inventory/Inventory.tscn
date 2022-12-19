@@ -18,67 +18,6 @@ region_rect = Rect2( 0, 0, 16, 16 )
 position = Vector2( 97, 41 )
 script = ExtResource( 3 )
 
-[node name="BGHotbar" type="ColorRect" parent="."]
-margin_right = 103.0
-margin_bottom = 18.0
-color = Color( 0.101961, 0.101961, 0.101961, 1 )
-
-[node name="Hotbar" type="GridContainer" parent="."]
-margin_left = 1.0
-margin_top = 1.0
-margin_right = 102.0
-margin_bottom = 17.0
-custom_constants/vseparation = 1
-custom_constants/hseparation = 1
-columns = 6
-
-[node name="HbSlot1" type="Panel" parent="Hotbar"]
-margin_right = 16.0
-margin_bottom = 16.0
-rect_min_size = Vector2( 16, 16 )
-custom_styles/panel = SubResource( 1 )
-script = ExtResource( 2 )
-
-[node name="HbSlot2" type="Panel" parent="Hotbar"]
-margin_left = 17.0
-margin_right = 33.0
-margin_bottom = 16.0
-rect_min_size = Vector2( 16, 16 )
-custom_styles/panel = SubResource( 1 )
-script = ExtResource( 2 )
-
-[node name="HbSlot3" type="Panel" parent="Hotbar"]
-margin_left = 34.0
-margin_right = 50.0
-margin_bottom = 16.0
-rect_min_size = Vector2( 16, 16 )
-custom_styles/panel = SubResource( 1 )
-script = ExtResource( 2 )
-
-[node name="HbSlot4" type="Panel" parent="Hotbar"]
-margin_left = 51.0
-margin_right = 67.0
-margin_bottom = 16.0
-rect_min_size = Vector2( 16, 16 )
-custom_styles/panel = SubResource( 1 )
-script = ExtResource( 2 )
-
-[node name="HbSlot5" type="Panel" parent="Hotbar"]
-margin_left = 68.0
-margin_right = 84.0
-margin_bottom = 16.0
-rect_min_size = Vector2( 16, 16 )
-custom_styles/panel = SubResource( 1 )
-script = ExtResource( 2 )
-
-[node name="HbSlot6" type="Panel" parent="Hotbar"]
-margin_left = 85.0
-margin_right = 101.0
-margin_bottom = 16.0
-rect_min_size = Vector2( 16, 16 )
-custom_styles/panel = SubResource( 1 )
-script = ExtResource( 2 )
-
 [node name="BGStats Window" type="ColorRect" parent="."]
 margin_top = 22.0
 margin_right = 103.0

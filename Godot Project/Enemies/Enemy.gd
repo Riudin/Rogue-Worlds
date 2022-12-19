@@ -268,7 +268,6 @@ func drop_loot():
 			new_item_drop.item_quantity = randi() % int(loot_table[item][2]) + 1
 			new_item_drop.position = self.global_position + Vector2(int(rand_range(-8, 8)), int(rand_range(-8, 8)))
 			get_tree().get_root().get_node("Main").call_deferred("add_child", new_item_drop)
-			print("loot: ", new_item_drop.item_quantity, " x ", new_item_drop.item_name)
 
 
 func _on_ShootTimer_timeout():
