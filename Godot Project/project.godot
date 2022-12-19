@@ -8,32 +8,26 @@
 
 config_version=4
 
-_global_script_classes=[ {
-"base": "TextureRect",
-"class": "Item",
-"language": "GDScript",
-"path": "res://Items/Item.gd"
-} ]
-_global_script_class_icons={
-"Item": ""
-}
-
 [application]
 
 config/name="Rogue Worlds"
-run/main_scene="res://MainScenes/Menu.tscn"
+run/main_scene="res://MainScenes/Main.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
+JsonData="*res://Autoload/JSONData.gd"
+PlayerInventory="*res://Autoload/PlayerInventory.gd"
+ChestInventory="*res://Autoload/ChestInventory.gd"
 Transition="*res://Autoload/transition.gd"
+Events="*res://Autoload/Events.gd"
 
 [display]
 
-window/size/width=320
-window/size/height=180
-window/size/test_width=1280
-window/size/test_height=720
+window/size/width=480
+window/size/height=270
+window/size/test_width=1440
+window/size/test_height=810
 mouse_cursor/custom_image="res://Resources/crosshair.png"
 mouse_cursor/custom_image_hotspot=Vector2( 8, 8 )
 window/stretch/mode="2d"
@@ -117,13 +111,23 @@ fire={
 "events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
  ]
 }
+inventory={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777218,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+chest_inventory={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":67,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
 
 [layer_names]
 
 2d_physics/layer_1="Player"
 2d_physics/layer_2="Enemy"
 2d_physics/layer_3="Environment"
-2d_physics/layer_4="Ressource"
+2d_physics/layer_4="Resource"
 2d_physics/layer_5="Projectile"
 2d_physics/layer_6="Hitbox"
 2d_physics/layer_7="Hurtbox"

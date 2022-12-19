@@ -1,0 +1,12 @@
+{
+  "BloodItemSmall": {
+    "ItemCategory": "Resource",
+    "StackSize": 99,
+    "Description": "A drop of Blood that can be used for crafting."
+  },
+  "EyeItemSmall": {
+    "ItemCategory": "Resource",
+    "StackSize": 99,
+    "Description": "A mysterious Eye that can be used for crafting."
+  }
+}

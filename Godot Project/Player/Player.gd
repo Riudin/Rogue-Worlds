@@ -24,6 +24,7 @@ onready var animation_tree = $AnimationTree
 onready var stun_timer = $StunTimer
 onready var weapon_pos = $Sprites/BackHand/WeaponPosition
 onready var screen_shaker = $Camera2D/ScreenShaker
+onready var pickupZone = $PickupZone
 # weapon needs to link to an interchangable weapon in the future. for now it's set on default
 onready var weapon = weapon_pos.get_child(0)
 #export(PackedScene) onready var weapon
@@ -33,13 +34,18 @@ var dashing = false
 var stun = false
 var facing_right = true setget orient_sprites
 var FRICTION = 25
+var inventory_open = false
 
 
 func _ready():
 	animation_tree.active = true
+	Events.connect("inventory_opened", self, "_on_inventory_opened")
 
 
 func _physics_process(delta):
+	if Input.is_action_just_pressed("ui_up"):
+		print(PlayerInventory.inventory)
+	
 	if not is_on_floor():
 		FRICTION = AIR_FRICTION
 	else:
@@ -74,7 +80,7 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("jump"):
 			jump()
 	
-	if Input.is_action_pressed("fire"):
+	if Input.is_action_pressed("fire") and not inventory_open:
 		weapon.start_fire_animation()
 		var weapon_recoil = weapon.get_recoil()
 		if facing_right and weapon.can_fire:
@@ -98,6 +104,11 @@ func _physics_process(delta):
 	
 	#if stun: velocity = Vector2.ZERO
 	#activate for stun
+	
+	if pickupZone.items_in_range.size() > 0:
+		var pickup_item = pickupZone.items_in_range.values()[0]
+		pickup_item.pick_up_item(self)
+		pickupZone.items_in_range.erase(pickup_item)
 	
 	velocity = move_and_slide(velocity, Vector2.UP)
 
@@ -169,6 +180,9 @@ func orient_sprites(right_is_new):
 
 func get_class(): return "Player" # used for collision detection
 func is_class(name): return name == "Player" or .is_class(name)
+
+func _on_inventory_opened(inventory_state):
+	inventory_open = inventory_state
 
 
 func _on_StunTimer_timeout():

@@ -1,0 +1,9 @@
+{
+	"BloodWorm": {
+		"1":	["BloodItemSmall", 60, 3],
+		"2":	["EyeItemSmall", 10, 1]
+  },
+	"EyeDude": {
+		"1":	["EyeItemSmall", 80, 2]
+  }
+}

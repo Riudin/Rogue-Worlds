@@ -76,6 +76,7 @@ projectile_piercing = true
 projectile_stationary = true
 can_fly = true
 can_pass_walls = true
+enemy_name = "EyeDude"
 projectile = ExtResource( 7 )
 
 [node name="Sprite" type="Sprite" parent="."]
