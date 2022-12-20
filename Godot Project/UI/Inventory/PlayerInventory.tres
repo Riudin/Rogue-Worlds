@@ -6,6 +6,9 @@
 script = ExtResource( 1 )
 inventory_name = ""
 inventory = {
+0: [ "BloodItemSmall", 4 ],
+1: [ "EyeItemSmall", 2 ],
+6: [ "BloodItemSmall", 4 ]
 }
 hotbar = {
 }
